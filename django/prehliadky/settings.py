@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'prehliadky.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',          # _psycopg2
+        'NAME': 'prehliadky',
+        'USER': 'prehliadky',
+        'PASSWORD': 'Gv3yjnctg:',
+        'HOST': 'mysql80.r2.websupport.sk',
+        'PORT': '3314',
     }
 }
 
