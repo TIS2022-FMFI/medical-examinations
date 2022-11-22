@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # our own apps
+    'employee',
+    'examinationType',
+    'passedExamination',
+    'rule',
+    'employeesRule',
+    'rulesExamination',
 ]
 
 MIDDLEWARE = [
