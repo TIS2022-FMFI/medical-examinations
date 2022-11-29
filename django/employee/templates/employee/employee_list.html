@@ -1,0 +1,27 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Employee list</h1>
+
+<a href="{% url 'employeeCreate' %}">Add Employee</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th></tr>
+        <th></tr>
+        <th></tr>
+    </tr>
+    {% for employee in employees %}
+    <tr>
+        <td>{{employee.name}}</td>
+        <td><a href="{% url 'employee' employee.id %}">detail</a></td>
+        <td><a href="{% url 'employeeUpdate' employee.id %}">edit</a></td>
+        <td><a href="{% url 'employeeDelete' employee.id %}">delete</a></td>
+    </tr>  
+    {% empty %}
+        <h3>No employees</h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}

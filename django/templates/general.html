@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+    <title>medical-lekarske</title>
+</head>
+<bode>
+    {% if request.user.is_authenticated %}
+        <p>{{request.user}}</p>
+        <a href="">LogOut</a>
+    {% else %}
+        <a href="">LogIn</a>
+    {% endif %}
+
+
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock content%}
+
+
+</bode>
+</html>

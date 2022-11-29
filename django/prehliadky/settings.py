@@ -62,7 +62,7 @@ ROOT_URLCONF = 'prehliadky.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [Path(__file__).resolve().parent.parent.joinpath("templates")], # add relative template file location
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
