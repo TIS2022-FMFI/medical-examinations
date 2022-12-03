@@ -1,0 +1,10 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Employee:</h1>
+<a href="{% url 'employees' %}">back</a>
+<p>{{employee.name}}</p>
+<p>{{employee.surname}}</p>
+<p>{{employee.personalNumber}}</p>
+
+{% endblock content%}

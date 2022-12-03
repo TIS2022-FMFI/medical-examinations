@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>medical-lekarske</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/general.css' %}">
+    
+    <!-- staticLink na pridanie dlasich linkov pre apky -->
+    {% block staticLink %}  
+    {% endblock staticLink %}
+
+</head>
+<bode>
+    <h1> main </h1>
+
+
+    {% if request.user.is_authenticated %}
+        <p>{{request.user}}</p>
+        <a href="">LogOut</a>
+    {% else %}
+        <a href="">LogIn</a>
+    {% endif %}
+
+
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock content%}
+
+
+</bode>
+</html>
