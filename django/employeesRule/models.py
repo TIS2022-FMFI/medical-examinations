@@ -6,3 +6,6 @@ from employee.models import Employee
 class EmployeesRule(models.Model):
     ruleId = models.ForeignKey(Rule, on_delete=models.DO_NOTHING)               # FOREIGNKEY NOT NULL
     employeeId = models.ForeignKey(Employee, on_delete=models.DO_NOTHING)       # FOREIGNKEY NOT NULL
+
+    def __str__(self):
+        return f'{self.ruleId}'
