@@ -1,0 +1,22 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Examination type list</h1>
+
+<a href="{% url 'examinationTypeCreate' %}">Add examination type</a>
+
+<table>
+    <th>
+        <th>Name</th>
+
+    </tr>
+    {% for et in examinatonTypes %}
+    <tr>
+        <td><a href="{% url 'examinationTypeUpdate' et.id %}">{{et.name}}</a></td>
+    </tr>  
+    {% empty %}
+        <h3>Examination types </h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}
