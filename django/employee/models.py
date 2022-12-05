@@ -8,6 +8,7 @@ class Employee(models.Model):
     userComment = models.TextField(null=True, blank=True)               # text
     exceptionExpirationDate = models.DateField(null=True, blank=True)   # date
 
-
+    def __str__(self):
+        return f'{self.name} {self.surname}'
 
 

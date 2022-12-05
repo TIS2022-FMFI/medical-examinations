@@ -1,0 +1,9 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Examination type:</h1>
+<a href="{% url 'examinationtypes' %}">back</a>
+<p>{{examinatonType.name}}</p>
+<p>{{examinatonType.periodicity}}</p>
+
+{% endblock content%}
