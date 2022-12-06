@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rule',
     'employeesRule',
     'rulesExamination',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+# settings for "LoginRequiredMixin" to let it know where to redirect not logedin user when accesing a restriced view
+# so i will redirect them to page with name 'login'
+LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
