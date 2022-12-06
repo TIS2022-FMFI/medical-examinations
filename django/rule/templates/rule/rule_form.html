@@ -1,0 +1,12 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Rule from</h1>
+<a href="{% url 'rules' %}">back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content%}
