@@ -1,1 +1,7 @@
 <h3>navbar</h3>
+
+{% if request.user.is_authenticated %}
+    <a href="{% url 'logout' %}">LogOut</a>
+{% else %}
+    <a href="{% url 'login' %}">LogIn</a>
+{% endif %}
