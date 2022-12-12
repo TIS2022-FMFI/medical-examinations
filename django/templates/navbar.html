@@ -2,18 +2,18 @@
 <nav class="navbar">
     <div class="logo"><a href="{% url 'employees' %}"><img src="/static/gefco-logo.png" alt="GEFCO logo"></a></div>
 <ul class="nav-links">
-    <li><a href="{% url 'employees' %}">employees</a></li>
+    <li><a href="{% url 'employees' %}">Zamestnanci</a></li>
 
-    <li><a href="{% url 'examinationtypes' %}">examinationTypes</a></li>
+    <li><a href="{% url 'examinationtypes' %}">Prehliadky</a></li>
 
 
 
-    <li><a href="{% url 'register' %}">register</a></li>
+    <li><a href="{% url 'register' %}">Registrovať</a></li>
 
 {% if request.user.is_authenticated %}
-<li><a href="{% url 'logout' %}">LogOut</a></li>
+<li><a href="{% url 'logout' %}">Odhlásiť</a></li>
 {% else %}
-<li><a href="{% url 'login' %}">LogIn</a></li>
+<li><a href="{% url 'login' %}">Prihlásiť</a></li>
 {% endif %}
 </ul>
 </nav>
