@@ -1,3 +1,45 @@
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+body {
+ font-family: cursive;
+}
+a {
+ text-decoration: none;
+}
+li {
+ list-style: none;
+}
+.navbar {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 20px;
+ background-color: teal;
+ color: #fff;
+}
+
+.nav-links a {
+ color: #fff;
+}
+
+.nav-links li {
+padding: 5px 14px;
+}
+
+.nav-links {
+ display: flex;
+ gap: 1em;
+ font-size: 18px;
+}
+
+/* LOGO */
+.logo {
+ font-size: 32px;
+}
+
 body{
     background-color: lightblue;
 }
