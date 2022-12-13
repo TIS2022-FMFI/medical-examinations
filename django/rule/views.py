@@ -5,7 +5,33 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
-from .models import City, Department, PositionRule
+from .models import City, Department, PositionRule, ShiftRule
+
+
+# ############################          ShiftRule      ###########################
+class ShiftRuleList(ListView):
+    model = ShiftRule
+
+
+class ShiftRuleDetail(DetailView):
+    model = ShiftRule
+
+
+class ShiftRuleCreate(CreateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
+
+
+class ShiftRuleUpdate(UpdateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
+
+
+class ShiftRuleDelete(DeleteView):
+    model = ShiftRule
+    success_url = reverse_lazy('shifts')
 
 
 # ############################          Department      ###########################

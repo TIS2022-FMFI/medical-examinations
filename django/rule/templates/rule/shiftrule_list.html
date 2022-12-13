@@ -1,0 +1,27 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Shift list</h1>
+
+<a href="{% url 'shiftCreate' %}">Add Shift</a>
+
+<table>
+    <th>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for rule in object_list  %}
+    <tr>
+        <td>{{rule.name}}</td>
+        <td><a href="{% url 'shift' rule.id %}">detail</a></td>
+        <td><a href="{% url 'shiftUpdate' rule.id %}">edit</a></td>
+        <td><a href="{% url 'shiftDelete' rule.id %}">delete</a></td>
+    </tr>  
+    {% empty %}
+        <h3>No rules</h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}

@@ -1,0 +1,12 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Shift from</h1>
+<a href="{% url 'shifts' %}">back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock content%}
