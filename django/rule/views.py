@@ -5,7 +5,33 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
-from .models import City, PositionRule
+from .models import City, Department, PositionRule
+
+
+# ############################          Department      ###########################
+class DepartmentList(ListView):
+    model = Department
+
+
+class DepartmentDetail(DetailView):
+    model = Department
+
+
+class DepartmentCreate(CreateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentUpdate(UpdateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentDelete(DeleteView):
+    model = Department
+    success_url = reverse_lazy('departments')
 
 
 # ############################          City            ###########################
