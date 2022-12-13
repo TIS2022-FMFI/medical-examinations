@@ -1,8 +1,8 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Shift from</h1>
-<a href="{% url 'shifts' %}">back</a>
+<h1>Pridať zmennosť</h1>
+<a href="{% url 'shifts' %}">späť</a>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}

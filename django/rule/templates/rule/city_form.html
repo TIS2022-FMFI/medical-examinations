@@ -1,8 +1,8 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Rule from</h1>
-<a href="{% url 'cities' %}">back</a>
+<h1>Pridať mesto</h1>
+<a href="{% url 'cities' %}">späť</a>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
