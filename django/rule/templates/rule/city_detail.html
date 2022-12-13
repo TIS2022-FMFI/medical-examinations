@@ -1,0 +1,9 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Rule:</h1>
+<a href="{% url 'cities' %}">back</a>
+<p>{{rule.name}}</p>
+<p>{{rule.locality}}</p>
+
+{% endblock content%}

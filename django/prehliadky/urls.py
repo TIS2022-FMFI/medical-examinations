@@ -22,4 +22,5 @@ urlpatterns = [
     path('employee/', include('employee.urls')),
     path('examinationtype/', include('examinationType.urls')),
     path('position/', include('rule.urls')),
+    path('city/', include('rule.urls_city')),
 ]
