@@ -5,39 +5,108 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
-# from .models import Rule,RuleType
-
-# Create your views here.
-
-# class RuleTypeList(ListView):
-#     model = RuleType
-#     context_object_name = 'ruletype'
-#     # template = 'templates\employee\employee_list'
-# class RuleList(ListView):
-#     model = Rule
-#     context_object_name = 'rules'
-#     # template = 'templates\employee\employee_list'
+from .models import City, Department, PositionRule, ShiftRule
 
 
-# class RuleDetail(DetailView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     # template = 'templates\employee\employee_detail'
+# ############################          ShiftRule      ###########################
+class ShiftRuleList(ListView):
+    model = ShiftRule
 
 
-# class RuleCreate(CreateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleDetail(DetailView):
+    model = ShiftRule
 
 
-# class RuleUpdate(UpdateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleCreate(CreateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
 
 
-# class RuleDelete(DeleteView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleUpdate(UpdateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
+
+
+class ShiftRuleDelete(DeleteView):
+    model = ShiftRule
+    success_url = reverse_lazy('shifts')
+
+
+# ############################          Department      ###########################
+class DepartmentList(ListView):
+    model = Department
+
+
+class DepartmentDetail(DetailView):
+    model = Department
+
+
+class DepartmentCreate(CreateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentUpdate(UpdateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentDelete(DeleteView):
+    model = Department
+    success_url = reverse_lazy('departments')
+
+
+# ############################          City            ###########################
+class CityList(ListView):
+    model = City
+
+
+class CityDetail(DetailView):
+    model = City
+
+
+class CityCreate(CreateView):
+    model = City
+    fields = '__all__'
+    success_url = reverse_lazy('cities')
+
+
+class CityUpdate(UpdateView):
+    model = City
+    fields = '__all__'
+    success_url = reverse_lazy('cities')
+
+
+class CityDelete(DeleteView):
+    model = City
+    success_url = reverse_lazy('cities')
+
+
+# ############################      PositionRule        ###########################
+class PositionRuleList(ListView):
+    model = PositionRule
+
+
+class PositionRuleDetail(DetailView):
+    model = PositionRule
+
+
+class PositionRuleCreate(CreateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
+
+
+class PositionRuleUpdate(UpdateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
+
+
+class PositionRuleDelete(DeleteView):
+    model = PositionRule
+    success_url = reverse_lazy('rules')

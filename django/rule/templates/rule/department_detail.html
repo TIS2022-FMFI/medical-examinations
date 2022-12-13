@@ -1,0 +1,9 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>department:</h1>
+<a href="{% url 'departments' %}">späť</a>
+<p>{{rule.name}}</p>
+<p>{{rule.locality}}</p>
+
+{% endblock content%}

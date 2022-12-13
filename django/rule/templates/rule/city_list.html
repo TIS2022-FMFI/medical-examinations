@@ -1,0 +1,23 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Zoznam miest</h1>
+
+<a href="{% url 'cityCreate' %}">Pridať mesto</a>
+
+<table>
+    <tr>
+        <th>Názov</th>
+        <th></th>
+    </tr>
+    {% for city in object_list  %}
+    <tr>
+        <td><a href="{% url 'cityUpdate' city.id %}">{{city.name}}</a></td>
+        <td><a href="{% url 'cityDelete' city.id %}">delete</a></td>
+    </tr>  
+    {% empty %}
+        <h3>Žiadne mestá</h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}
