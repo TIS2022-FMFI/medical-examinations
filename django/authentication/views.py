@@ -6,9 +6,11 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.urls import reverse_lazy
 
-class CustomLoginView(LoginView):
+class CustomLoginView(LoginRequiredMixin, LoginView):
     template_name = 'authentication/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
@@ -20,7 +22,7 @@ class CustomLoginView(LoginView):
 
 
 
-class MyUserCreationForm(UserCreationForm):
+class MyUserCreationForm(LoginRequiredMixin, UserCreationForm):
     email = forms.EmailField(required=True)
 
     class Meta:
@@ -34,7 +36,7 @@ class MyUserCreationForm(UserCreationForm):
             user.save()
         return user
 
-class RegisterView(FormView):
+class RegisterView(LoginRequiredMixin, FormView):
     template_name = 'authentication/register.html'
     form_class = MyUserCreationForm
     success_url = reverse_lazy('employees')
