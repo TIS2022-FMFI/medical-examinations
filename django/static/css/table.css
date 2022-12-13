@@ -22,3 +22,60 @@ width: 25%;
   font-weight: bold;
   text-align: center;
 }
+
+
+
+.button-exam-add {
+  align-items: center;
+  appearance: none;
+  background-color: #1d0090!important;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 10px;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  will-change: transform;
+}
+
+.button-exam-add a{
+  color: white;
+  font-size: 20px;
+}
+
+.button-exam-add:disabled {
+  pointer-events: none;
+}
+
+.button-exam-add:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-exam-add:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.container {
+    display: block;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
