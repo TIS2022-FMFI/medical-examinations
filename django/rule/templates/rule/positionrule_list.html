@@ -12,7 +12,7 @@
         <th></th>
         <th></th>
     </tr>
-    {% for rule in rules %}
+    {% for rule in object_list  %}
     <tr>
         <td>{{rule.name}}</td>
         <td><a href="{% url 'rule' rule.id %}">detail</a></td>

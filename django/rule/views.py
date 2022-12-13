@@ -5,39 +5,31 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
-# from .models import Rule,RuleType
+from .models import PositionRule
 
 # Create your views here.
 
-# class RuleTypeList(ListView):
-#     model = RuleType
-#     context_object_name = 'ruletype'
-#     # template = 'templates\employee\employee_list'
-# class RuleList(ListView):
-#     model = Rule
-#     context_object_name = 'rules'
-#     # template = 'templates\employee\employee_list'
+
+class PositionRuleList(ListView):
+    model = PositionRule
 
 
-# class RuleDetail(DetailView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     # template = 'templates\employee\employee_detail'
+class PositionRuleDetail(DetailView):
+    model = PositionRule
 
 
-# class RuleCreate(CreateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class PositionRuleCreate(CreateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
 
 
-# class RuleUpdate(UpdateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class PositionRuleUpdate(UpdateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
 
 
-# class RuleDelete(DeleteView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     success_url = reverse_lazy('rules')
+class PositionRuleDelete(DeleteView):
+    model = PositionRule
+    success_url = reverse_lazy('rules')

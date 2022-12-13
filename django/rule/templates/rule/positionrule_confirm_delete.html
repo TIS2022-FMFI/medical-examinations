@@ -2,7 +2,7 @@
 {% block content %}
 
 <h1>Delete</h1>
-<a href="{% url 'rules' %}">back</a>
+<a href="{% url 'positionRules' %}">back</a>
 <form method="POST">
     {% csrf_token %}
     <p>Are you sure you want to delete this rule "{{rule.name}} {{rule.locality}}"?</p>
