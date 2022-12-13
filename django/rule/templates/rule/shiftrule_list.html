@@ -6,18 +6,14 @@
 <a href="{% url 'shiftCreate' %}">Pridať zmennosť</a>
 
 <table>
-    <th>
+    <tr>
         <th>Názov</th>
         <th></th>
-        <th></th>
-        <th></th>
     </tr>
-    {% for rule in object_list  %}
+    {% for shift in object_list  %}
     <tr>
-        <td>{{rule.name}}</td>
-        <td><a href="{% url 'shift' rule.id %}">detail</a></td>
-        <td><a href="{% url 'shiftUpdate' rule.id %}">edit</a></td>
-        <td><a href="{% url 'shiftDelete' rule.id %}">delete</a></td>
+        <td><a href="{% url 'shiftUpdate' shift.id %}">{{shift.name}}</a></td>
+        <td><a href="{% url 'shiftDelete' shift.id %}">delete</a></td>
     </tr>  
     {% empty %}
         <h3>No rules</h3>

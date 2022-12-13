@@ -6,19 +6,17 @@
 <a href="{% url 'positionRuleCreate' %}">Pridať pozíciu</a>
 
 <table>
-    <th>
+    <tr>
         <th>Názov</th>
-        <th></th>
-        <th></th>
+        <th>Oddelenie</th>
         <th></th>
     </tr>
     {% for positionRule in object_list  %}
     <tr>
-        <td>{{positionRule.name}}</td>
-        <td><a href="{% url 'positionRule' positionRule.id %}">detail</a></td>
-        <td><a href="{% url 'positionRuleUpdate' positionRule.id %}">edit</a></td>
+        <td><a href="{% url 'positionRuleUpdate' positionRule.id %}">{{positionRule.name}}</a></td>
+        <td><a href="{% url 'departmentUpdate' positionRule.departmentId.id %}">{{positionRule.departmentId}}</a></td>
         <td><a href="{% url 'positionRuleDelete' positionRule.id %}">delete</a></td>
-    </tr>  
+    </tr>
     {% empty %}
         <h3>Žiadne pozície</h3>
     {% endfor %}

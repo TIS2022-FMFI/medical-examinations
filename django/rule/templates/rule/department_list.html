@@ -6,21 +6,21 @@
 <a href="{% url 'departmentCreate' %}">Pridať oddelenie</a>
 
 <table>
-    <th>
+    <tr>
         <th>Názov</th>
         <th></th>
         <th></th>
-        <th></th>
+
     </tr>
-    {% for rule in object_list  %}
+    {% for department in object_list  %}
     <tr>
-        <td>{{rule.name}}</td>
-        <td><a href="{% url 'department' rule.id %}">detail</a></td>
-        <td><a href="{% url 'departmentUpdate' rule.id %}">edit</a></td>
-        <td><a href="{% url 'departmentDelete' rule.id %}">delete</a></td>
+
+        <td><a href="{% url 'departmentUpdate' department.id %}">{{department.name}}</a></td>
+        <td><a href="{% url 'cityUpdate' department.cityId.id %}">{{department.name}}</a></td>
+        <td><a href="{% url 'departmentDelete' department.id %}">delete</a></td>
     </tr>  
     {% empty %}
-        <h3>No departments</h3>
+        <h3>Žiadne oddelenia</h3>
     {% endfor %}
 </table>
 

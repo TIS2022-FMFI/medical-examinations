@@ -6,18 +6,14 @@
 <a href="{% url 'cityCreate' %}">Pridať mesto</a>
 
 <table>
-    <th>
+    <tr>
         <th>Názov</th>
         <th></th>
-        <th></th>
-        <th></th>
     </tr>
-    {% for rule in object_list  %}
+    {% for city in object_list  %}
     <tr>
-        <td>{{rule.name}}</td>
-        <td><a href="{% url 'city' rule.id %}">detail</a></td>
-        <td><a href="{% url 'cityUpdate' rule.id %}">edit</a></td>
-        <td><a href="{% url 'cityDelete' rule.id %}">delete</a></td>
+        <td><a href="{% url 'cityUpdate' city.id %}">{{city.name}}</a></td>
+        <td><a href="{% url 'cityDelete' city.id %}">delete</a></td>
     </tr>  
     {% empty %}
         <h3>Žiadne mestá</h3>
