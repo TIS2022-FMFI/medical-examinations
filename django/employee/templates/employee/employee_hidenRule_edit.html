@@ -1,0 +1,41 @@
+{% extends 'general.html' %}
+
+{% block content %}
+
+<a href="{% url 'employeeUpdate' employee.id %}">naspäť</a>
+
+<!-- <div>
+    <h2>Povinné rehliadky zamestnanca</h2>
+    <h3>Prehliadky z pozície: </h3>
+    <ul>
+    {% for rulesExamination in positionRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Prehliadky zo zmennosti: </h3>
+    <ul>
+    {% for rulesExamination in shiftRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+</div> -->
+
+<div>
+
+    <h2>Individuálne priradené prehiladky zamestnanca {{ employee }}: </h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+
+{% endblock content%}

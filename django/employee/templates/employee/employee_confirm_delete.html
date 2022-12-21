@@ -1,11 +1,11 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Delete</h1>
-<a href="{% url 'employees' %}">back</a>
+<h1>Vymazať</h1>
+<a href="{% url 'employees' %}">naspäť</a>
 <form method="POST">
     {% csrf_token %}
-    <p>Are you sure you want to delete this employee "{{employee.name}} {{employee.surname}}"?</p>
+    <p>Ste si istý, že chcete vymazať zamestnanca: "{{employee.name}} {{employee.surname}}"?</p>
     <input type = "submit" value="Delete"/>
 </form>
 

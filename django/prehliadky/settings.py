@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'examinationType',
     'passedExamination',
     'rule',
-    'employeesRule',
     'rulesExamination',
     'authentication',
 ]

@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import EmployeeList, EmployeeDetail, EmployeeCreate, EmployeeUpdate, EmployeeDelete
+from .views import EmployeeList, EmployeeCreate, EmployeeUpdate, EmployeeHiddenRuleEdit, EmployeeDelete
 
 urlpatterns = [
     path('', EmployeeList.as_view(), name='employees'),
-    path('<int:pk>/', EmployeeDetail.as_view(), name='employee'),
     path('create/', EmployeeCreate.as_view(), name='employeeCreate'),
-    path('update/<int:pk>/', EmployeeUpdate.as_view(), name='employeeUpdate'),
+    path('<int:pk>/', EmployeeUpdate.as_view(), name='employeeUpdate'),
+    path('custom-eaxminations/<int:pk>/', EmployeeHiddenRuleEdit.as_view(), name='employeeExaminationsUpdate'),
     path('delete/<int:pk>/', EmployeeDelete.as_view(), name='employeeDelete'),
 ]
