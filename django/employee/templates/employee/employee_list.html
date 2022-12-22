@@ -1,23 +1,27 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Employee list</h1>
+<h1>Zoznam zamestnancov</h1>
 
-<a href="{% url 'employeeCreate' %}">Add Employee</a>
+<a href="{% url 'employeeCreate' %}">pridať zamestnanca</a>
 
 <table>
-    <th>
-        <th>Name</th>
-        <th></th>
-        <th></th>
-        <th></th>
+    <tr>
+        <th>Meno Priezvisko</th>
+        <th>Identifikačné číslo</th>
+        <th>Pozícia</th>
+        <th>Oddelenie</th>
+        <th>Mesto</th>
+        <th>Zmennosť</th>
     </tr>
     {% for employee in employees %}
     <tr>
-        <td>{{employee.name}}</td>
-        <td><a href="{% url 'employee' employee.id %}">detail</a></td>
-        <td><a href="{% url 'employeeUpdate' employee.id %}">edit</a></td>
-        <td><a href="{% url 'employeeDelete' employee.id %}">delete</a></td>
+        <td><a href="{% url 'employeeUpdate' employee.id %}">{{ employee.name }} {{ employee.surname }}</a></td>
+        <td>{{ employee.employeeId }}</td>
+        <td>{{ employee.positionRuleId.name }}</td>
+        <td>{{ employee.positionRuleId.departmentId.name }}</td>
+        <td>{{ employee.positionRuleId.departmentId.cityId.name }}</td>
+        <td>{{ employee.shiftRuleId }}</td>
     </tr>  
     {% empty %}
         <h3>No employees</h3>

@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 
-class CustomLoginView(LoginRequiredMixin, LoginView):
+class CustomLoginView(LoginView):
     template_name = 'authentication/login.html'
     fields = '__all__'
     redirect_authenticated_user = True

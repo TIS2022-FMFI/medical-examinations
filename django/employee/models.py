@@ -1,5 +1,6 @@
 from django.db import models
 from rule.models import PositionRule, ShiftRule, HiddenRule
+from django.urls import reverse
 
 
 class Employee(models.Model):
@@ -17,5 +18,8 @@ class Employee(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.surname}'
+
+    def get_absolute_url(self):
+        return reverse('employeeUpdate', kwargs={'pk': self.pk})
 
 
