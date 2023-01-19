@@ -1,0 +1,27 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Zoznam oddelení</h1>
+
+<a href="{% url 'departmentCreate' %}">Pridať oddelenie</a>
+
+<table>
+    <tr>
+        <th>Názov</th>
+        <th></th>
+        <th></th>
+
+    </tr>
+    {% for department in object_list  %}
+    <tr>
+
+        <td><a href="{% url 'departmentUpdate' department.id %}">{{department.name}}</a></td>
+        <td><a href="{% url 'cityUpdate' department.cityId.id %}">{{department.name}}</a></td>
+        <td><a href="{% url 'departmentDelete' department.id %}">delete</a></td>
+    </tr>  
+    {% empty %}
+        <h3>Žiadne oddelenia</h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}

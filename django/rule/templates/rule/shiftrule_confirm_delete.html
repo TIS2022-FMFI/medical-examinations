@@ -1,0 +1,12 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>VYMAZAŤ</h1>
+<a href="{% url 'shifts' %}">späť</a>
+<form method="POST">
+    {% csrf_token %}
+    <p>Ste si istý, že chcete vymazať zmennosť "{{shift.name}}"?</p>
+    <input type = "submit" value="Delete"/>
+</form>
+
+{% endblock content%}

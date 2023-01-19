@@ -1,0 +1,50 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Upraviť zamestnanca</h1>
+
+<a href="{% url 'employees' %}">back</a>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+
+<div>
+    <h2>Povinné rehliadky zamestnanca</h2>
+    <h3>Prehliadky z pozície: </h3>
+    <ul>
+    {% for rulesExamination in positionRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Prehliadky zo zmennosti: </h3>
+    <ul>
+    {% for rulesExamination in shiftRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+</div>
+<div>
+    <h2>Individuálne priradené prehiladky: </h3>
+    <ul>
+    {% for rulesExamination in individualRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'employeeExaminationsUpdate' employee.id %}">upraviť</a>
+</div>
+
+<td><a href="{% url 'employeeDelete' employee.id %}">vymazať</a></td>
+
+{% endblock content%}
+
+

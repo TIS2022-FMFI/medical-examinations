@@ -1,0 +1,25 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Zoznam pracovných pozícií</h1>
+
+<a href="{% url 'positionRuleCreate' %}">Pridať pozíciu</a>
+
+<table>
+    <tr>
+        <th>Názov</th>
+        <th>Oddelenie</th>
+        <th></th>
+    </tr>
+    {% for positionRule in object_list  %}
+    <tr>
+        <td><a href="{% url 'positionRuleUpdate' positionRule.id %}">{{positionRule.name}}</a></td>
+        <td><a href="{% url 'departmentUpdate' positionRule.departmentId.id %}">{{positionRule.departmentId}}</a></td>
+        <td><a href="{% url 'positionRuleDelete' positionRule.id %}">delete</a></td>
+    </tr>
+    {% empty %}
+        <h3>Žiadne pozície</h3>
+    {% endfor %}
+</table>
+
+{% endblock content%}
