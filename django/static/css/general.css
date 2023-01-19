@@ -18,7 +18,7 @@ li {
  align-items: center;
  justify-content: space-between;
  padding: 20px;
- background-color: teal;
+ background-color: darkgrey;
  color: #fff;
 }
 .nav-links a {
@@ -33,6 +33,11 @@ padding: 5px 14px;
  font-size: 18px;
 }
 
+.nav-links li a:hover{
+    outline: black;
+    color: lightblue;
+}
+
 /* LOGO */
 
 .logo img{
@@ -43,7 +48,7 @@ padding: 5px 14px;
 }
 
 body{
-    background-color: lightblue;
+    background-color: grey;
 }
 
 h1{
@@ -76,5 +81,56 @@ button,
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button;
+}
+[type="add-employee"]{
+    color: whitesmoke;
+}
+
+.add-employ {
+    background-color: whitesmoke;
+    outline-color: black;
+    color:#383736;
+    padding: 5px;
+    width: fit-content;
+}
+
+.add-employ:hover {
+    background-color: #383736;
+    color: whitesmoke;
+}
+
+.exam-form-submit{
+    padding: 3px;
+}
+
+.exam-form-block{
+    display: block;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    font-size: 25px;
+}
+
+.exam-form-h1{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+}
+
+.exam-form-button a{
+    color: #383736;
+    align-items: center;
+}
+
+
+.exam-form-button{
+    background-color: #383736;
+    color: whitesmoke;
+    padding: 3px;
+    margin: 5px;
+}
+.exam-form-button a{
+    color: whitesmoke;
 }
 

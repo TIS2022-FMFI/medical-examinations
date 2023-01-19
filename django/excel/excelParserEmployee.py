@@ -12,6 +12,7 @@ django.setup()
 from employee.models import Employee
 from examinationType.models import ExaminationType
 from passedExamination.models import PassedExaminations
+from rule.models import City, Department, Rule, PositionRule, ShiftRule
 
 
 class ExcelParserEmployee:
@@ -24,10 +25,10 @@ class ExcelParserEmployee:
             'surname': self._get_column_number_of_header('Priezvisko'),
             'name': self._get_column_number_of_header('Meno'),
             'personalNumber': self._get_column_number_of_header('Rodné číslo'),
-            'zmennost': self._get_column_number_of_header('Zmennosť'),
-            'pozicia': self._get_column_number_of_header('Pozícia'),
-            'oddelenie': self._get_column_number_of_header('Oddelenie'),
-            'pracovisko': self._get_column_number_of_header('Pracovisko'),
+            'shift': self._get_column_number_of_header('Zmennosť'),
+            'position': self._get_column_number_of_header('Pozícia'),
+            'department': self._get_column_number_of_header('Oddelenie'),
+            'city': self._get_column_number_of_header('Mesto'),
             'userComment': self._get_column_number_of_header('POZNÁMKA')
         }
         self.column_of_first_exam_type = self._get_column_number_of_header('Dátum poslednej prehliadky') + 1
@@ -37,36 +38,93 @@ class ExcelParserEmployee:
 
         self.examination_type_objects_by_column_number = dict()
 
-    def insert_employees_to_db(self):
+    def start(self):
         PassedExaminations.objects.all().delete()
         Employee.objects.all().delete()
         ExaminationType.objects.all().delete()
 
-
         self.insert_examination_types_to_db()
+        self.insert_employees_to_db()
+
+    def _get_or_create_position_rule(self, position_name, department_name, city_name):
+        try:
+            return PositionRule.objects.get(name=position_name)
+        except PositionRule.DoesNotExist:
+            department = self._get_or_create_department(department_name, city_name)
+            rule = Rule()
+            rule.save()
+            pr = PositionRule()
+            pr.name = position_name
+            pr.departmentId = department
+            pr.ruleId = rule
+            pr.save()
+            return pr
+
+    def _get_or_create_department(self, department_name, city_name):
+        try:
+            return Department.objects.get(name=department_name)
+        except Department.DoesNotExist:
+            city = self._get_or_create_city(city_name)
+            d = Department()
+            d.name = department_name
+            d.cityId = city
+            d.save()
+            return d
+
+    def _get_or_create_city(self, city_name):
+        try:
+            return City.objects.get(name=city_name)
+        except City.DoesNotExist:
+            city = City()
+            city.name = city_name
+            city.save()
+            return city
+
+    def _get_or_create_shift_rule(self, shift_rule_name):
+        try:
+            return ShiftRule.objects.get(name=shift_rule_name)
+        except ShiftRule.DoesNotExist:
+            rule = Rule()
+            rule.save()
+            sr = ShiftRule()
+            sr.name = shift_rule_name
+            sr.ruleId = rule
+            sr.save()
+            return sr
+
+
+    def insert_employees_to_db(self):
+
+
+
 
         # skip first line in sheet (header)
         itersheet = iter(self.sheet)
         next(itersheet)
         for row in itersheet:
+            position_name = next(filter(lambda x: x.column == self.column_numbers['position'], row)).value
+            department_name = next(filter(lambda x: x.column == self.column_numbers['department'], row)).value
+            city_name = next(filter(lambda x: x.column == self.column_numbers['city'], row)).value
+            position_rule = self._get_or_create_position_rule(position_name, department_name, city_name)
+            shift_rule_name = next(filter(lambda x: x.column == self.column_numbers['shift'], row)).value
+            shift_rule = self._get_or_create_shift_rule(shift_rule_name)
             e = Employee()
             e.name = next(filter(lambda x: x.column == self.column_numbers['name'], row)).value
             e.surname = next(filter(lambda x: x.column == self.column_numbers['surname'], row)).value
             e.personalNumber = next(filter(lambda x: x.column == self.column_numbers['personalNumber'], row)).value
             e.userComment = next(filter(lambda x: x.column == self.column_numbers['userComment'], row)).value
-            # e.exceptionExpirationDate
+            e.positionRuleId = position_rule
+            e.shiftRuleId = shift_rule
 
             if any(elem is None for elem in [e.name, e.surname, e.personalNumber]):
                 print('zle meno')
                 continue
             e.save()
 
-
             for cell in row[self.column_of_first_exam_type-1:]:
                 if cell.value is None:
                     continue
 
-                print(cell.value)
                 pe = PassedExaminations()
 
                 pe.employeeId = e
@@ -74,9 +132,6 @@ class ExcelParserEmployee:
                 pe.date = cell.value
 
                 pe.save()
-
-
-
 
     def insert_examination_types_to_db(self):
         periodicities = self._get_periodicities_of_examination_types()
@@ -103,5 +158,5 @@ class ExcelParserEmployee:
 
 
 a = ExcelParserEmployee()
-a.insert_employees_to_db()
+a.start()
 

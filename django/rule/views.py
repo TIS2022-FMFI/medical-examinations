@@ -5,39 +5,110 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.urls import reverse_lazy
 
-# from .models import Rule,RuleType
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
-
-# class RuleTypeList(ListView):
-#     model = RuleType
-#     context_object_name = 'ruletype'
-#     # template = 'templates\employee\employee_list'
-# class RuleList(ListView):
-#     model = Rule
-#     context_object_name = 'rules'
-#     # template = 'templates\employee\employee_list'
+from .models import City, Department, PositionRule, ShiftRule
 
 
-# class RuleDetail(DetailView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     # template = 'templates\employee\employee_detail'
+# ############################          ShiftRule      ###########################
+class ShiftRuleList(LoginRequiredMixin, ListView):
+    model = ShiftRule
 
 
-# class RuleCreate(CreateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleDetail(LoginRequiredMixin, DetailView):
+    model = ShiftRule
 
 
-# class RuleUpdate(UpdateView):
-#     model = Rule
-#     fields = '__all__'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleCreate(LoginRequiredMixin, CreateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
 
 
-# class RuleDelete(DeleteView):
-#     model = Rule
-#     context_object_name = 'rule'
-#     success_url = reverse_lazy('rules')
+class ShiftRuleUpdate(LoginRequiredMixin, UpdateView):
+    model = ShiftRule
+    fields = '__all__'
+    success_url = reverse_lazy('shifts')
+
+
+class ShiftRuleDelete(LoginRequiredMixin, DeleteView):
+    model = ShiftRule
+    success_url = reverse_lazy('shifts')
+
+
+# ############################          Department      ###########################
+class DepartmentList(LoginRequiredMixin, ListView):
+    model = Department
+
+
+class DepartmentDetail(LoginRequiredMixin, DetailView):
+    model = Department
+
+
+class DepartmentCreate(LoginRequiredMixin, CreateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentUpdate(LoginRequiredMixin, UpdateView):
+    model = Department
+    fields = '__all__'
+    success_url = reverse_lazy('departments')
+
+
+class DepartmentDelete(LoginRequiredMixin, DeleteView):
+    model = Department
+    success_url = reverse_lazy('departments')
+
+
+# ############################          City            ###########################
+class CityList(LoginRequiredMixin, ListView):
+    model = City
+
+
+class CityDetail(LoginRequiredMixin, DetailView):
+    model = City
+
+
+class CityCreate(LoginRequiredMixin, CreateView):
+    model = City
+    fields = '__all__'
+    success_url = reverse_lazy('cities')
+
+
+class CityUpdate(LoginRequiredMixin, UpdateView):
+    model = City
+    fields = '__all__'
+    success_url = reverse_lazy('cities')
+
+
+class CityDelete(LoginRequiredMixin, DeleteView):
+    model = City
+    success_url = reverse_lazy('cities')
+
+
+# ############################      PositionRule        ###########################
+class PositionRuleList(LoginRequiredMixin, ListView):
+    model = PositionRule
+
+
+class PositionRuleDetail(LoginRequiredMixin, DetailView):
+    model = PositionRule
+
+
+class PositionRuleCreate(LoginRequiredMixin, CreateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
+
+
+class PositionRuleUpdate(LoginRequiredMixin, UpdateView):
+    model = PositionRule
+    fields = '__all__'
+    success_url = reverse_lazy('rules')
+
+
+class PositionRuleDelete(LoginRequiredMixin, DeleteView):
+    model = PositionRule
+    success_url = reverse_lazy('rules')

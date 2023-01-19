@@ -21,5 +21,9 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('employee/', include('employee.urls')),
     path('examinationtype/', include('examinationType.urls')),
-    path('rule/', include('rule.urls')),
+    path('city/', include('rule.urls_city')),
+    path('department/', include('rule.urls_department')),
+    path('position/', include('rule.urls')),
+    path('shift/', include('rule.urls_shift')),
+
 ]
