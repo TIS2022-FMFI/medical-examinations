@@ -13,9 +13,9 @@
     </tr>
     {% for positionRule in object_list  %}
     <tr>
-        <td><a href="{% url 'positionRuleUpdate' positionRule.id %}">{{positionRule.name}}</a></td>
-        <td><a href="{% url 'departmentUpdate' positionRule.departmentId.id %}">{{positionRule.departmentId}}</a></td>
-        <td><a href="{% url 'positionRuleDelete' positionRule.id %}">delete</a></td>
+        <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}">{{positionRule.position_name}}</a></td>
+        <td><a href="{% url 'departmentUpdate' positionRule.department_id %}">{{positionRule.department_name}}</a></td>
+        <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}">delete</a></td>
     </tr>
     {% empty %}
         <h3>Žiadne pozície</h3>
