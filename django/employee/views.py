@@ -9,17 +9,61 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.db import connection
+
 from .models import Employee
 from rule.models import Rule, HiddenRule
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
 
+
+def dictfetchall(cursor): 
+    "Returns all rows from a cursor as a dict" 
+    desc = cursor.description 
+    print([i[0] for i in desc])
+    return [
+            dict(zip([col[0] for col in desc], row)) 
+            for row in cursor.fetchall() 
+    ]
+
+
 # Create your views here.
 
 class EmployeeList(LoginRequiredMixin, ListView):
-    model = Employee
-    context_object_name = 'employees'
-    # template = 'templates\employee\employee_list'
+    # model = Employee
+    context_object_name = 'employee_list'
+    template_name = 'employee\employee_list.html'
+    # paginate_by = 25
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(EmployeeList, self).get_context_data(**kwargs)
+    #     # print(context)
+    #     with connection.cursor() as cursor:
+    #         cursor.execute("SELECT * FROM employee_employee")
+    #         print(cursor.fetchall())
+    #         # context['employees'] = cursor.fetchall()
+    #     # print(context)
+    #     return context
+    
+    def get_queryset(self):
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT 
+                    employee.id, employee.name, employee.surname, employee.employeeId,
+                    position.name as positionName,
+                    department.name as departmentName,
+                    city.name as cityName,
+                    shift.name as shiftName
+                FROM employee_employee as employee
+                LEFT JOIN rule_positionrule as position on employee.positionRuleId_id = position.ruleId_id
+                LEFT JOIN rule_department as department on position.departmentId_id = department.id
+                LEFT JOIN rule_city as city on department.cityId_id = city.id
+                LEFT JOIN rule_shiftrule as shift on employee.shiftRuleId_id = shift.ruleId_id
+                ORDER BY employee.id
+            """)
+            return dictfetchall(cursor)
+        return []
+
 
 
 
@@ -57,12 +101,10 @@ class EmployeeUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 
-
 class EmployeeDelete(LoginRequiredMixin, DeleteView):
     model = Employee
     context_object_name = 'employee'
     success_url = reverse_lazy('employees')
-
 
 
 class ChoiceForm(forms.Form):
@@ -82,10 +124,10 @@ class ChoiceForm(forms.Form):
         self.fields['choicesField'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
         self.fields['choicesField'].initial = initials
 
-    
+
 class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
     template_name = "employee/employee_hidenRule_edit.html"
-    form_class = ChoiceForm        
+    form_class = ChoiceForm     
 
     def get_success_url(self):
         return reverse_lazy('employeeUpdate', kwargs={'pk': self.kwargs['pk']})
@@ -109,7 +151,6 @@ class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
         setInDB = set()
         if(employee.hiddenRuleId is not None): 
             setInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = employee.hiddenRuleId.ruleId))
-        
 
         with transaction.atomic(): # start transaction
             if(employee.hiddenRuleId is None): # create hidden rule if doesnt exists
@@ -131,16 +172,4 @@ class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
                 if(str(ruleExamination.examinationTypeId.id) in IdsToDelete):
                     ruleExamination.delete()
         
-
         return super().form_valid(form)
-
-        
-        
-
-        
-
-
-        
-
-        
-
