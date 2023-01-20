@@ -9,6 +9,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import City, Department, PositionRule, ShiftRule
 
+from django.db import connection
+
+
+def dictfetchall(cursor):
+    "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
+
 
 # ############################          ShiftRule      ###########################
 class ShiftRuleList(LoginRequiredMixin, ListView):
@@ -90,7 +101,18 @@ class CityDelete(LoginRequiredMixin, DeleteView):
 
 # ############################      PositionRule        ###########################
 class PositionRuleList(LoginRequiredMixin, ListView):
-    model = PositionRule
+    #model = PositionRule
+    template_name = 'rule/positionrule_list.html'
+
+    def get_queryset(self):
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                SELECT 	p.id position_id, p.name position_name,
+		                d.id department_id, d.name department_name
+                FROM rule_positionrule p
+                LEFT JOIN rule_department d ON p.departmentId_id = d.id  ''')
+            return dictfetchall(cursor)
+
 
 
 class PositionRuleDetail(LoginRequiredMixin, DetailView):
