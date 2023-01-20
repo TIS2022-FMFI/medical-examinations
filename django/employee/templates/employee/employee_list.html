@@ -7,6 +7,8 @@
 <button class="add-employ" type="add-employee"><a href="{% url 'employeeCreate' %}">pridať zamestnanca</a></button>
 
 
+
+
 <table>
     <tr>
         <th>Meno Priezvisko</th>
@@ -16,18 +18,34 @@
         <th>Mesto</th>
         <th>Zmennosť</th>
     </tr>
-    {% for employee in employees %}
+    {% for employee in employee_list %}
     <tr>
         <td><a href="{% url 'employeeUpdate' employee.id %}">{{ employee.name }} {{ employee.surname }}</a></td>
         <td>{{ employee.employeeId }}</td>
-        <td>{{ employee.positionRuleId.name }}</td>
-        <td>{{ employee.positionRuleId.departmentId.name }}</td>
-        <td>{{ employee.positionRuleId.departmentId.cityId.name }}</td>
-        <td>{{ employee.shiftRuleId }}</td>
-    </tr>  
+        <td>{{ employee.positionName }}</td>
+        <td>{{ employee.departmentName }}</td>
+        <td>{{ employee.cityName }}</td>
+        <td>{{ employee.shiftName }}</td>
+    </tr>
     {% empty %}
         <h3>No employees</h3>
     {% endfor %}
 </table>
+
+<!-- 
+<div class="pagination">
+    <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="/employee/?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="page-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="/employee/?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div> 
+-->
 
 {% endblock content%}
