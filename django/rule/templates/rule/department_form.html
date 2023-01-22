@@ -1,7 +1,12 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Pridať oddelenie</h1>
+{% if 'create' in request.path %}
+    <h1>Pridať oddelenie</h1>
+{% else %}
+    <h1>Upraviť oddelenie</h1>
+{% endif %}
+
 <a href="{% url 'departments' %}">späť</a>
 <form method="POST" action="">
     {% csrf_token %}
