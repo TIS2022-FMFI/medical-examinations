@@ -1,2 +1,3 @@
 django/.idea/
 **/__pycache__/
+django/debug.log
