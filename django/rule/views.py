@@ -32,13 +32,13 @@ class ShiftRuleDetail(LoginRequiredMixin, DetailView):
 
 class ShiftRuleCreate(LoginRequiredMixin, CreateView):
     model = ShiftRule
-    fields = '__all__'
+    fields = ("name",)
     success_url = reverse_lazy('shifts')
 
 
 class ShiftRuleUpdate(LoginRequiredMixin, UpdateView):
     model = ShiftRule
-    fields = '__all__'
+    fields = ("name",)
     success_url = reverse_lazy('shifts')
 
 
@@ -121,13 +121,13 @@ class PositionRuleDetail(LoginRequiredMixin, DetailView):
 
 class PositionRuleCreate(LoginRequiredMixin, CreateView):
     model = PositionRule
-    fields = '__all__'
+    fields = ("name",)
     success_url = reverse_lazy('rules')
 
 
 class PositionRuleUpdate(LoginRequiredMixin, UpdateView):
     model = PositionRule
-    fields = '__all__'
+    fields = ("name",)
     success_url = reverse_lazy('rules')
 
 

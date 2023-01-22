@@ -1,7 +1,12 @@
 {% extends 'general.html' %}
 {% block content %}
 
-<h1>Pridať mesto</h1>
+{% if 'create' in request.path %}
+    <h1>Pridať mesto</h1>
+{% else %}
+    <h1>Upraviť mesto</h1>
+{% endif %}
+
 <a href="{% url 'cities' %}">späť</a>
 <form method="POST" action="">
     {% csrf_token %}

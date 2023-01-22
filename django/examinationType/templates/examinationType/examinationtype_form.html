@@ -1,7 +1,12 @@
 {% extends 'general.html' %}
 {% block content %}
 
-    <h1 class="exam-form-h1">Examination type form</h1>
+    {% if 'create' in request.path %}
+        <h1 class="exam-form-h1">Pridať prehliadku</h1>
+    {% else %}
+        <h1 class="exam-form-h1">Upravť prehliadku</h1>
+    {% endif %}
+
     <div class="exam-form-block">
     
     <form method="POST" action="">
@@ -12,7 +17,10 @@
 
 
     <button class="exam-form-button"><a href="{% url 'examinationtypes' %}">back</a></button>
-    <button class="exam-form-button"><a href="{% url 'examinationTypeDelete' examinatonType.id %}">delete</a></button>
+    {% if 'create' not in request.path %}
+        <button class="exam-form-button"><a href="{% url 'examinationTypeDelete' examinatonType.id %}">delete</a></button>
+    {% endif %}
+
 </div>
 
 {% endblock content%}
