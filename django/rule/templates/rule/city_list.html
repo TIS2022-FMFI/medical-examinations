@@ -3,13 +3,13 @@
 
 <h1>Zoznam miest</h1>
 
-<a href="{% url 'cityCreate' %}">Pridať mesto</a>
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať mesto</button>
 
 <table>
-    <tr>
+    <thead>
         <th>Názov</th>
         <th></th>
-    </tr>
+    </thead>
     {% for city in object_list  %}
     <tr>
         <td><a href="{% url 'cityUpdate' city.id %}">{{city.name}}</a></td>
