@@ -1,14 +1,14 @@
 {% extends 'general.html' %}
 {% block content %}
-
+<div class="form-regular-div">
 <h1>Vytvoriť zamestnanca</h1>
-<a href="{% url 'employees' %}">back</a>
+<button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="form-regular-submit">
 </form>
-
+</div>
 {% endblock content%}
 
 

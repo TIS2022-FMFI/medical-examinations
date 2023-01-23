@@ -1,15 +1,18 @@
 {% extends 'authenticationRoot.html' %}
 
 {% block content %}
-
+<div class="form-regular-div">
 <h1>Login</h1>
 
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" class="form-regular-submit">
 </form>
+<script>
+    complikovane_url = "{% url 'password_reset' %}"
+</script>
+<button class="button-regular" role="button" onclick="location.href=complikovane_url">Resetovať Heslo</button>
 
-<a href="{% url 'password_reset' %}">reset password</a>
-
+</div>
 {% endblock content%}

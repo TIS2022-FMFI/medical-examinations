@@ -1,17 +1,19 @@
 {% extends 'general.html' %}
 {% block content %}
 
-{% if 'create' in request.path %}
+
+<div class="form-regular-div">
+    {% if 'create' in request.path %}
     <h1>Pridať mesto</h1>
 {% else %}
     <h1>Upraviť mesto</h1>
 {% endif %}
+<button class="button-regular" role="button" onclick="window.location.href='/city/';">Späť</button>
 
-<a href="{% url 'cities' %}">späť</a>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="form-regular-submit">
 </form>
-
+</div>
 {% endblock content%}
