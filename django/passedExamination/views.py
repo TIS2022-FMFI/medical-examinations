@@ -43,7 +43,6 @@ class PassedExaminationsList(LoginRequiredMixin, ListView):
                 ORDER BY passed.date DESC
             """, [self.kwargs['pk']])
             context['passed_list'] = dictfetchall(cursor)
-        print(context)
         return context
 
 class PassedExaminationDelete(LoginRequiredMixin, DeleteView):
