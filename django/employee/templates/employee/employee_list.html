@@ -41,6 +41,7 @@
         <th>Oddelenie</th>
         <th>Mesto</th>
         <th>Zmennosť</th>
+        <th>Dní do expirácie</th>
     </thead>
     {% for employee in employee_list %}
     <tr>
@@ -50,6 +51,12 @@
         <td>{{ employee.departmentName }}</td>
         <td>{{ employee.cityName }}</td>
         <td>{{ employee.shiftName }}</td>
+        <td>{% if employee.days_to_expiration == None %}
+                NEMÁ
+            {% else %}
+                {{employee.days_to_expiration }}
+            {% endif %}
+        </td>
     </tr>
     {% empty %}
         <h3>No employees</h3>
