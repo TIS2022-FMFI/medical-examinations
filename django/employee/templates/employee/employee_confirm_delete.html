@@ -1,12 +1,13 @@
 {% extends 'general.html' %}
 {% block content %}
-
+<div class="form-regular-div">
 <h1>Vymazať</h1>
-<a href="{% url 'employees' %}">naspäť</a>
+<button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
+
 <form method="POST">
     {% csrf_token %}
     <p>Ste si istý, že chcete vymazať zamestnanca: "{{employee.name}} {{employee.surname}}"?</p>
-    <input type = "submit" value="Delete"/>
+    <input type = "submit" value="Delete" class="form-regular-submit"/>
 </form>
-
+</div>
 {% endblock content%}

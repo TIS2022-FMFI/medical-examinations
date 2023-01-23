@@ -1,12 +1,12 @@
 {% extends 'general.html' %}
 {% block content %}
-
+<div class="form-regular-div">
 <h1>VYMAZAŤ</h1>
-<a href="{% url 'positionRules' %}">späť</a>
+<button class="button-regular" role="button" onclick="window.location.href='/city/';">Späť</button>
 <form method="POST">
     {% csrf_token %}
     <p>Ste si istý, že chcete vymazať mesto "{{city.name}}"?</p>
-    <input type = "submit" value="Delete"/>
+    <input type = "submit" value="Delete" class="form-regular-submit"/>
 </form>
-
+</div>
 {% endblock content%}

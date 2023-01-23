@@ -5,28 +5,27 @@ padding: 8px;
 
 table {
 border-collapse: collapse;
-background-color: darkgrey;
-color: white;
+/* background-color: #FFD898; */
+background: #FFD898;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFD898, #ffffff);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFD898, #ffffff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+color: black;
+text-align: center;
+font-weight: bold;
+
 }
 
 thead tr {
 width: 25%;
-}
-
-.exam-name {
-  background-color: #383736;
-  font-weight: bold;
-  text-align: center;
-}
-
-.exam-period {
-  background-color: blue;
-  font-weight: bold;
-  text-align: center;
+background: #e65c00;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #F9D423, #e65c00);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #F9D423, #e65c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 td a{
-  color: white;
+  color: black;
+  text-align: center;
+  font-weight: bold;
 }
 
 .button-exam-add {

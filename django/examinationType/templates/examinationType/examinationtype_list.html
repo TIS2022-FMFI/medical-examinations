@@ -4,9 +4,9 @@
 <h1>Examination type list</h1>
 
 
-<div class="container">
-<button class="button-exam-add"><a href="{% url 'examinationTypeCreate' %}">Add examination type</a></button>
-<table class="responsive-table">
+
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Add examination type</button>
+<table>
     <caption>Examination type list</caption>
     <thead>
         <th>Name</th>
@@ -16,13 +16,12 @@
     <tbody>
         {% for et in examinatonTypes %}
         <tr>
-            <td class="exam-name"><a href="{% url 'examinationTypeUpdate' et.id %}">{{et.name}}</a></td>
-            <td data-title="Periodicity" class="exam-period">{{et.periodicity}}</td>
+            <td><a href="{% url 'examinationTypeUpdate' et.id %}">{{et.name}}</a></td>
+            <td data-title="Periodicity">{{et.periodicity}}</td>
         </tr>
     </tbody>
     {% empty %}
         <h3>Examination types </h3>
     {% endfor %}
 </table>
-</div>
 {% endblock content%}

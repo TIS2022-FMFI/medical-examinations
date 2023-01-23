@@ -1,9 +1,11 @@
 {% extends 'general.html' %}
 {% block content %}
 
+
+<div class="form-regular-div">
 <h1>Upraviť zamestnanca</h1>
 
-<a href="{% url 'employees' %}">back</a>
+<button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
@@ -40,11 +42,17 @@
         <li>žiadne prehliadky</li>
     {% endfor %}
     </ul>
-    <a href="{% url 'employeeExaminationsUpdate' employee.id %}">upraviť</a>
+    <script>
+        url_complicated1="{% url 'employeeExaminationsUpdate' employee.id %}"
+        url_complicated2="{% url 'employeeDelete' employee.id %}"
+    </script>
+    <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť</button>
 </div>
 
-<td><a href="{% url 'employeeDelete' employee.id %}">vymazať</a></td>
-
+<td>
+    <button class="button-regular" role="button" onclick="location.href=url_complicated2">Vymazať</button>
+</td>
+</div>
 {% endblock content%}
 
 

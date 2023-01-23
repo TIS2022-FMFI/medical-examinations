@@ -2,15 +2,15 @@
 
 {% block content %}
 
-
+<div class="form-regular-div">
 <h1>Register</h1>
 
 <form method="POST">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" class="form-regular-submit">
 </form>
-
+</div>
 
 
 {% endblock content%}
