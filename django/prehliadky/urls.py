@@ -25,5 +25,5 @@ urlpatterns = [
     path('department/', include('rule.urls_department')),
     path('position/', include('rule.urls')),
     path('shift/', include('rule.urls_shift')),
-
+    path('passed-examinations/', include('passedExamination.urls'))
 ]

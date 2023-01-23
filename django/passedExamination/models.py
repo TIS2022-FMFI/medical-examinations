@@ -7,7 +7,6 @@ class PassedExaminations(models.Model):
     examinationTypeId = models.ForeignKey(ExaminationType, on_delete=models.DO_NOTHING)     # FOREIGNKEY NOT NULL
     date = models.DateField()                                                               # date NOT NULL
 
-
     def __str__(self):
         return f'{self.employeeId} - {self.examinationTypeId} - {self.date}'
 
