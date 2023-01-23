@@ -12,6 +12,8 @@ background: linear-gradient(to right, #FFD898, #ffffff); /* W3C, IE 10+/ Edge, F
 color: black;
 text-align: center;
 font-weight: bold;
+justify-content: center;
+display: inline-block;
 
 }
 

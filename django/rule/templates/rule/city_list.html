@@ -1,11 +1,9 @@
 {% extends 'general.html' %}
 {% block content %}
-
-<h1>Zoznam miest</h1>
-
 <button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať mesto</button>
-
+<div class="form-regular-div">
 <table>
+    <caption>Zoznam miest</caption>
     <thead>
     <tr>
         <th>Názov</th>
@@ -21,5 +19,5 @@
         <h3>Žiadne mestá</h3>
     {% endfor %}
 </table>
-
+</div>
 {% endblock content%}
