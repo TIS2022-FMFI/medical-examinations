@@ -1,11 +1,7 @@
 {% extends 'general.html' %}
 {% block content %}
-
-<h1>Examination type list</h1>
-
-
-
 <button class="button-regular" role="button" onclick="window.location.href='create/';">Add examination type</button>
+<div class="form-regular-div">
 <table>
     <caption>Examination type list</caption>
     <thead>
@@ -26,4 +22,5 @@
         <h3>Examination types </h3>
     {% endfor %}
 </table>
+</div>
 {% endblock content%}
