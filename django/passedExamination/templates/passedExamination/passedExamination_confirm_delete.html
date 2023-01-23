@@ -1,0 +1,17 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Vymazať</h1>
+
+<p><a href="{% url 'employeesPassedExaminations' employee.id %}">naspäť</a></p>
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Ste si istý, že chcete vymazať zamestnancovi "{{employee.name}} {{employee.surname}}"" 
+            záznam o absolvovaní prehliadky: "{{passedExamination.examinationTypeId}} dňa {{passedExamination.date}}"?</p>
+        <input type = "submit" value="Delete"/>
+    </form>
+</div>
+
+{% endblock content%}
