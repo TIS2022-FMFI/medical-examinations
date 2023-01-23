@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<a href="{% url 'employeeUpdate' employee.id %}">naspäť</a>
+<script>
+    url_complicated1="{% url 'employeeUpdate' employee.id %}"
+</script>
+
+
 
 <!-- <div>
     <h2>Povinné rehliadky zamestnanca</h2>
@@ -25,14 +29,15 @@
     </ul>
 </div> -->
 
-<div>
+<div class="form-regular-div">
+    <button class="button-regular" role="button" onclick="location.href=url_complicated1">Späť</button>
 
     <h2>Individuálne priradené prehiladky zamestnanca {{ employee }}: </h2>
 
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="form-regular-submit">
     </form>
 
 </div>

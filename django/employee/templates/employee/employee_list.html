@@ -3,10 +3,14 @@
 
 
 <button class="button-regular" role="button" onclick="window.location.href='create/';">pridať zamestnanca</button>
+<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="myInput" onkeydown="search_by_name();">
+<input type="text" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="myInput" onkeydown="search_by_id();">
+<input type="text" name="search" placeholder="Vyhladavanie podla pozicie" class="search-input" id="myInput" onkeydown="search_by_position();">
+<input type="text" name="search" placeholder="Vyhladavanie podla oddelenia" class="search-input" id="myInput" onkeydown="search_by_department();">
+<input type="text" name="search" placeholder="Vyhladavanie podla mesta" class="search-input" id="myInput" onkeydown="search_by_city();">
+<input type="text" name="search" placeholder="Vyhladavanie podla zmennosti" class="search-input" id="myInput" onkeydown="search_by_shift();">
 <div class="form-regular-div">
-
-
-<table>
+<table id="myList">
     <caption>Zoznam zamestnancov</caption>
     <thead>
         <th>Meno Priezvisko</th>
