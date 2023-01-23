@@ -1,7 +1,7 @@
 function search_by_name() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("name");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");
@@ -22,7 +22,7 @@ function search_by_name() {
   function search_by_id() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("id");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");
@@ -43,7 +43,7 @@ function search_by_name() {
   function search_by_position() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("posit");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");
@@ -64,7 +64,7 @@ function search_by_name() {
   function search_by_department() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("depart");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");
@@ -85,7 +85,7 @@ function search_by_name() {
   function search_by_city() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("city");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");
@@ -106,7 +106,7 @@ function search_by_name() {
   function search_by_shift() {
     // Declare variables 
      var input, filter, table, tr, td, i;
-      input = document.getElementById("myInput");
+      input = document.getElementById("shift");
       filter = input.value.toUpperCase();
       table = document.getElementById("myList");
       tr = table.getElementsByTagName("tr");

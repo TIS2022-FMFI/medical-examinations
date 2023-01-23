@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import connection
 
 from .models import Employee
-from rule.models import Rule, HiddenRule
+from rule.models import Rule, HiddenRule, PositionRule, City, Department, ShiftRule
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
 from passedExamination.models import PassedExaminations
@@ -28,15 +28,16 @@ class EmployeeList(LoginRequiredMixin, ListView):
     context_object_name = 'employee_list'
     template_name = 'employee\employee_list.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(EmployeeList, self).get_context_data(**kwargs)
-    #     # print(context)
-    #     with connection.cursor() as cursor:
-    #         cursor.execute("SELECT * FROM employee_employee")
-    #         print(cursor.fetchall())
-    #         # context['employees'] = cursor.fetchall()
-    #     # print(context)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeList, self).get_context_data(**kwargs)
+        context['Position_rules_list'] = PositionRule.objects.all()
+        context['Department_rules_list'] = Department.objects.all()
+        context['City_rules_list'] = City.objects.all()
+        context['Shift_rules_list'] = ShiftRule.objects.all()
+        return context
+
+        
+
     
     def get_queryset(self):
         with connection.cursor() as cursor:
