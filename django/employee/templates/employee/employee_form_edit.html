@@ -1,13 +1,12 @@
 {% extends 'general.html' %}
 {% block content %}
 
+
+<div class="form-regular-div">
 <h1>Upraviť zamestnanca</h1>
 
-<div>
-    <p><a href="{% url 'employees' %}">back</a></p>
-</div>
+<button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
 
-<div>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
@@ -21,41 +20,25 @@
 </div>
 
 <div>
-    <div>
-        <h2>Povinné rehliadky zamestnanca</h2>
-        <h3>Prehliadky z pozície: </h3>
-        <ul>
-        {% for rulesExamination in positionRulesExaminations %}
-            <li>{{ rulesExamination.examinationTypeId }}</li>
-        {% empty %}
-            <li>žiadne prehliadky</li>
-        {% endfor %}
-        </ul>
 
-        <h3>Prehliadky zo zmennosti: </h3>
-        <ul>
-        {% for rulesExamination in shiftRulesExaminations %}
-            <li>{{ rulesExamination.examinationTypeId }}</li>
-        {% empty %}
-            <li>žiadne prehliadky</li>
-        {% endfor %}
-        </ul>
-    </div>
-    <div>
-        <h2>Individuálne priradené prehiladky: </h3>
-        <ul>
-        {% for rulesExamination in individualRulesExaminations %}
-            <li>{{ rulesExamination.examinationTypeId }}</li>
-        {% empty %}
-            <li>žiadne prehliadky</li>
-        {% endfor %}
-        </ul>
-        <p><a href="{% url 'employeeExaminationsUpdate' employee.id %}">upraviť</a></p>
-    </div>
+    <h2>Individuálne priradené prehiladky: </h2>
+    <ul>
+    {% for rulesExamination in individualRulesExaminations %}
+        <li>{{ rulesExamination.examinationTypeId }}</li>
+    {% empty %}
+        <li>žiadne prehliadky</li>
+    {% endfor %}
+    </ul>
+    <script>
+        url_complicated1="{% url 'employeeExaminationsUpdate' employee.id %}"
+        url_complicated2="{% url 'employeeDelete' employee.id %}"
+    </script>
+    <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť</button>
 </div>
 
-<div>
-    <p><a href="{% url 'employeeDelete' employee.id %}">vymazať</a></p>
+<td>
+    <button class="button-regular" role="button" onclick="location.href=url_complicated2">Vymazať</button>
+</td>
 </div>
 
 {% endblock content%}

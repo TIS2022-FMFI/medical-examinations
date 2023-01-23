@@ -21,5 +21,3 @@ class Employee(models.Model):
 
     def get_absolute_url(self):
         return reverse('employeeUpdate', kwargs={'pk': self.pk})
-
-

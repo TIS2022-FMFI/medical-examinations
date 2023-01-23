@@ -164,3 +164,23 @@ EMAIL_PORT = 587 # gmail smtp configration
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '' # email_for_sending_msgs
 EMAIL_HOST_PASSWORD = '' # password_to_that_email
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

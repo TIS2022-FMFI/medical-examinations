@@ -3,13 +3,15 @@
 
 <h1>Zoznam zmenností</h1>
 
-<a href="{% url 'shiftCreate' %}">Pridať zmennosť</a>
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať zmennosť</button>
 
 <table>
+    <thead>
     <tr>
         <th>Názov</th>
         <th></th>
     </tr>
+    </thead>
     {% for shift in object_list  %}
     <tr>
         <td><a href="{% url 'shiftUpdate' shift.id %}">{{shift.name}}</a></td>

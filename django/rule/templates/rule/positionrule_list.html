@@ -3,14 +3,16 @@
 
 <h1>Zoznam pracovných pozícií</h1>
 
-<a href="{% url 'positionRuleCreate' %}">Pridať pozíciu</a>
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať pozíciu</button>
 
 <table>
+    <thead>
     <tr>
         <th>Názov</th>
         <th>Oddelenie</th>
         <th></th>
     </tr>
+    </thead>
     {% for positionRule in object_list  %}
     <tr>
         <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}">{{positionRule.position_name}}</a></td>

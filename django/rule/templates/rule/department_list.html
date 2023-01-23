@@ -3,15 +3,16 @@
 
 <h1>Zoznam oddelení</h1>
 
-<a href="{% url 'departmentCreate' %}">Pridať oddelenie</a>
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať oddelenie</button>
 
 <table>
+    <thead>
     <tr>
         <th>Názov</th>
+        <th>Mesto</th>
         <th></th>
-        <th></th>
-
     </tr>
+    </thead>
     {% for department in object_list  %}
     <tr>
 

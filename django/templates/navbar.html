@@ -1,4 +1,3 @@
-
 <nav class="navbar">
     <div class="logo">
         <a href="{% url 'employees' %}"><img src="/static/gefco-logo.png" alt="GEFCO logo"></a>
@@ -13,7 +12,6 @@
     <li><a href="{% url 'shifts' %}">Zmennosti</a></li>
 
 
-
     <li><a href="{% url 'register' %}">Registrovať</a></li>
 
 {% if request.user.is_authenticated %}
@@ -23,6 +21,3 @@
 {% endif %}
 </ul>
 </nav>
-
-
-

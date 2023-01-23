@@ -4,18 +4,19 @@
 <h1>Zoznam zamestnancov</h1>
 
 
-<button class="add-employ" type="add-employee"><a href="{% url 'employeeCreate' %}">pridať zamestnanca</a></button>
+<button class="button-regular" role="button" onclick="window.location.href='create/';">pridať zamestnanca</button>
+
 
 
 <table>
-    <tr>
+    <thead>
         <th>Meno Priezvisko</th>
         <th>Identifikačné číslo</th>
         <th>Pozícia</th>
         <th>Oddelenie</th>
         <th>Mesto</th>
         <th>Zmennosť</th>
-    </tr>
+    </thead>
     {% for employee in employee_list %}
     <tr>
         <td><a href="{% url 'employeeUpdate' employee.id %}">{{ employee.name }} {{ employee.surname }}</a></td>
