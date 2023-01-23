@@ -2,10 +2,13 @@
 {% block content %}
 
 <h1>Absolvované prehliadky</h1> 
+<script>
+  url_complicated1="{% url 'employeeUpdate' employee.id %}"
+</script>
+<button class="button-regular" role="button" onclick="location.href=url_complicated1">Späť</button>
 
-<a href="{% url 'employeeUpdate' employee.id %}">naspäť</a>
 
-<div>
+<div class="form-regular-div">
 
     <h2>Individuálne priradené prehiladky zamestnanca {{ employee }}: </h2>
 

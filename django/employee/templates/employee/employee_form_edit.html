@@ -10,13 +10,20 @@
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="form-regular-submit">
 </form>
 </div>
 
 <div>
-    <p><a href="{% url 'employeeAbsolvedEdit' employee.id %}">pridať absolvovane prehliadky</a></p>
-    <p><a href="{% url 'employeesPassedExaminations' employee.id %}">historia absolvovaných prehliadkok</a></p>
+    <script>
+        url_complicated3="{% url 'employeeAbsolvedEdit' employee.id %}"
+        url_complicated4="{% url 'employeesPassedExaminations' employee.id %}"
+    </script>
+    
+<button class="button-regular" role="button" onclick="location.href=url_complicated3">pridať absolvovane prehliadky</button>
+
+<button class="button-regular" role="button" onclick="location.href=url_complicated4">historia absolvovaných prehliadkok</button>
+
 </div>
 
 <div>
