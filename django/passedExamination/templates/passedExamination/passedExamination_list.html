@@ -1,6 +1,8 @@
 {% extends 'general.html' %}
 {% block content %}
 
+
+<div class="form-regular-div">
 <h1>Zoznam absolvovaných prehliadok zamestnanca</h1>
 
 
@@ -8,9 +10,13 @@
     <h2>{{context.employee.name}} {{context.employee.surname}}</h2>
 </div>
 
-<p><a href="{% url 'employeeUpdate' context.employee.id %}">nastäť</a></p>
 
-<p><a href="{% url 'employeeAbsolvedEdit' context.employee.id %}">pridať absolvovane prehliadky</a></p>
+<script>
+    url_complicated1="{% url 'employeeUpdate' context.employee.id %}"
+    url_complicated2="{% url 'employeeAbsolvedEdit' context.employee.id %}"
+  </script>
+  <button class="button-regular" role="button" onclick="location.href=url_complicated1">Späť</button>
+  <button class="button-regular" role="button" onclick="location.href=url_complicated2">pridať absolvovane prehliadky</button>
 
 <div>
     <table>
@@ -30,6 +36,6 @@
         {% endfor %}
     </table>
 </div>
-
+</div>
 
 {% endblock content%}
