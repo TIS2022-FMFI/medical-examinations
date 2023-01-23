@@ -1,29 +1,26 @@
 # from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django import forms
 from django.db import transaction
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.urls import reverse_lazy
 from django.db import connection
+from django.shortcuts import get_object_or_404
 
 from .models import Employee
 from rule.models import Rule, HiddenRule
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
+from passedExamination.models import PassedExaminations
 
+from .forms import ChoiceForm, AbsolvedExaminationsChoiceForm
 
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
-    desc = cursor.description 
-    print([i[0] for i in desc])
+    desc = cursor.description
     return [
-            dict(zip([col[0] for col in desc], row)) 
-            for row in cursor.fetchall() 
+        dict(zip([col[0] for col in desc], row)) 
+        for row in cursor.fetchall() 
     ]
 
 
@@ -33,7 +30,6 @@ class EmployeeList(LoginRequiredMixin, ListView):
     # model = Employee
     context_object_name = 'employee_list'
     template_name = 'employee\employee_list.html'
-    # paginate_by = 25
 
     # def get_context_data(self, **kwargs):
     #     context = super(EmployeeList, self).get_context_data(**kwargs)
@@ -107,24 +103,6 @@ class EmployeeDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('employees')
 
 
-class ChoiceForm(forms.Form):
-    choicesField = forms.MultipleChoiceField(
-            widget  = forms.CheckboxSelectMultiple()
-        )
-
-    def __init__(self, employeeId, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['choicesField'].required = False
-
-        employee = get_object_or_404(Employee, id=employeeId)
-        initials = []
-        if(employee.hiddenRuleId is not None):
-            initials = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = employee.hiddenRuleId.ruleId)]
-
-        self.fields['choicesField'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
-        self.fields['choicesField'].initial = initials
-
-
 class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
     template_name = "employee/employee_hidenRule_edit.html"
     form_class = ChoiceForm     
@@ -171,5 +149,38 @@ class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
             for ruleExamination in allValidRulesExaminations:
                 if(str(ruleExamination.examinationTypeId.id) in IdsToDelete):
                     ruleExamination.delete()
+        
+        return super().form_valid(form)
+
+
+class EmployeesAbsolvedExaminationsMenu(LoginRequiredMixin, FormView):
+    template_name = "employee/employee_abdolvedExaminations_edit.html"
+    form_class = AbsolvedExaminationsChoiceForm 
+
+    def get_success_url(self):
+        return reverse_lazy('employeeUpdate', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['employee'] = Employee.objects.get(id=self.kwargs['pk'])
+        return context
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        kwargs = self.get_form_kwargs()
+        kwargs['employeeId'] = self.kwargs['pk']
+        return form_class(**kwargs)
+
+    def form_valid(self, form):
+        employee = get_object_or_404(Employee, id=self.kwargs['pk'])
+        examinationsSetInForm = set(form.cleaned_data['choicesField'])
+        dateSetInForm = form.cleaned_data['date']
+
+        with transaction.atomic(): # start transaction   
+            examinations = ExaminationType.objects.filter(id__in = examinationsSetInForm)
+            for examination in examinations:
+                print(examination, examination.id)
+                PassedExaminations.objects.create(employeeId=employee, examinationTypeId=examination, date=dateSetInForm)
         
         return super().form_valid(form)

@@ -1,0 +1,35 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Zoznam absolvovaných prehliadok zamestnanca</h1>
+
+
+<div>
+    <h2>{{context.employee.name}} {{context.employee.surname}}</h2>
+</div>
+
+<p><a href="{% url 'employeeUpdate' context.employee.id %}">nastäť</a></p>
+
+<p><a href="{% url 'employeeAbsolvedEdit' context.employee.id %}">pridať absolvovane prehliadky</a></p>
+
+<div>
+    <table>
+        <tr>
+            <th>Dátum absolvovanie</th>
+            <th>Názov prehliadky</th>
+            <th></th>
+        </tr>
+        {% for passed in context.passed_list %}
+        <tr>
+            <td>{{ passed.date }}</td>
+            <td>{{ passed.examinationName }}</td>
+            <td><a href="{% url 'passedExaminationDelete' passed.id context.employee.id %}">delete</a></td>
+        </tr>
+        {% empty %}
+            <h3>Žiadne absolvavane prehliadky</h3>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock content%}

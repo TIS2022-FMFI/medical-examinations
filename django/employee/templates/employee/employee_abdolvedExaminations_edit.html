@@ -1,0 +1,33 @@
+{% extends 'general.html' %}
+{% block content %}
+
+<h1>Absolvované prehliadky</h1> 
+
+<a href="{% url 'employeeUpdate' employee.id %}">naspäť</a>
+
+<div>
+
+    <h2>Individuálne priradené prehiladky zamestnanca {{ employee }}: </h2>
+
+    <div class="input-group date" id="datetimepicker1" data-target-input="nearest"></div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+      </div>
+    </div>
+
+    <script>
+        $(function () {
+          $("#datetimepicker1").datetimepicker({
+            format: 'DD/MM/YYYY HH:mm',
+          });
+        });
+      </script>
+
+</div>
+
+{% endblock content%}
