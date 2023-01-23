@@ -1,4 +1,3 @@
-# from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -6,28 +5,21 @@ from django import forms
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.db import connection
-
 from .models import Employee
 from rule.models import Rule, HiddenRule
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
 
-
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
     desc = cursor.description 
-    print([i[0] for i in desc])
+    # print([i[0] for i in desc])
     return [
             dict(zip([col[0] for col in desc], row)) 
             for row in cursor.fetchall() 
     ]
-
-
-# Create your views here.
 
 class EmployeeList(LoginRequiredMixin, ListView):
     # model = Employee
@@ -92,7 +84,7 @@ class EmployeeUpdate(LoginRequiredMixin, UpdateView):
         employeesShiftRulesExaminations = RulesExamination.objects.filter(ruleId = employee.shiftRuleId.ruleId)
         context['shiftRulesExaminations'] = employeesShiftRulesExaminations
 
-        if(employee.hiddenRuleId is not None):
+        if employee.hiddenRuleId is not None:
             employeesIndividualRulesExaminations = RulesExamination.objects.filter(ruleId = employee.hiddenRuleId.ruleId)
         else: 
             employeesIndividualRulesExaminations = []
@@ -118,7 +110,7 @@ class ChoiceForm(forms.Form):
 
         employee = get_object_or_404(Employee, id=employeeId)
         initials = []
-        if(employee.hiddenRuleId is not None):
+        if employee.hiddenRuleId is not None:
             initials = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = employee.hiddenRuleId.ruleId)]
 
         self.fields['choicesField'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
@@ -149,11 +141,11 @@ class EmployeeHiddenRuleEdit(LoginRequiredMixin, FormView):
         setInForm = set(form.cleaned_data['choicesField'])
 
         setInDB = set()
-        if(employee.hiddenRuleId is not None): 
+        if employee.hiddenRuleId is not None:
             setInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = employee.hiddenRuleId.ruleId))
 
         with transaction.atomic(): # start transaction
-            if(employee.hiddenRuleId is None): # create hidden rule if doesnt exists
+            if employee.hiddenRuleId is None: # create hidden rule if doesnt exists
                 rule = Rule.objects.create() 
                 hiddenRule = HiddenRule.objects.create(ruleId = rule)
                 employee.hiddenRuleId = hiddenRule
