@@ -3,10 +3,8 @@ from django.db.models import Q
 from django import forms
 
 from .models import Employee
-from rule.models import Rule, HiddenRule
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
-from passedExamination.models import PassedExaminations
 
 
 class ChoiceForm(forms.Form):
