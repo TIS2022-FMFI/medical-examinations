@@ -14,7 +14,6 @@ from examinationType.models import ExaminationType
 
 
 
-
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
     desc = cursor.description
@@ -179,14 +178,14 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
         positionRule = get_object_or_404(PositionRule, id=self.kwargs['pk'])
 
         nameSetInForm = form.cleaned_data['name']
-        # departmentSetInForm = form.cleaned_data['department']
+        departmentIdSetInForm = form.cleaned_data['department']
         examinationsSetInForm = set(form.cleaned_data['examinatoins'])
 
         examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
-
+        departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
         with transaction.atomic(): # start transaction
             positionRule.name = nameSetInForm
-            # positionRule.departmentId = departmentSetInForm
+            positionRule.departmentId = departmentSetInForm
             positionRule.save() # save changes
         
             # to set
