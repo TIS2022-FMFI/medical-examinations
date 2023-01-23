@@ -3,19 +3,34 @@
 
 
 <button class="button-regular" role="button" onclick="window.location.href='create/';">pridať zamestnanca</button>
-<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="myInput" onkeydown="search_by_name();">
-<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="myInput" onkeydown="search_by_id();">
+<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="name" onkeydown="search_by_name();">
+<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="id" onkeydown="search_by_id();">
 
-<select name="pozicie" id="posit">
-    
-    
+<select name="pozicie" id="posit" onchange="search_by_position()">
+    {% for result in Position_rules_list %}
+    <option>{{ result.name }}</option>
+    {% endfor %}
 </select>   
  
+<select name="pozicie" id="depart" onchange="search_by_department()">
+    {% for result in Department_rules_list %}
+    <option>{{ result.name }}</option>
+    {% endfor %}
+</select>  
 
-<input type="text" name="search" placeholder="Vyhladavanie podla pozicie" class="search-input" id="myInput" onkeydown="search_by_position();">
-<input type="text" name="search" placeholder="Vyhladavanie podla oddelenia" class="search-input" id="myInput" onkeydown="search_by_department();">
-<input type="text" name="search" placeholder="Vyhladavanie podla mesta" class="search-input" id="myInput" onkeydown="search_by_city();">
-<input type="text" name="search" placeholder="Vyhladavanie podla zmennosti" class="search-input" id="myInput" onkeydown="search_by_shift();">
+<select name="pozicie" id="city" onchange="search_by_city()">
+    {% for result in City_rules_list %}
+    <option>{{ result.name }}</option>
+    {% endfor %}
+</select>  
+
+<select name="pozicie" id="shift" onchange="search_by_shift()">
+    {% for result in Shift_rules_list %}
+    <option>{{ result.name }}</option>
+    {% endfor %}
+</select>  
+
+
 <div class="form-regular-div">
 <table id="myList">
     <caption>Zoznam zamestnancov</caption>
