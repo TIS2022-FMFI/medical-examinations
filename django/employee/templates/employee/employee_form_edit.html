@@ -27,24 +27,45 @@
 </div>
 
 <div>
-
-    <h2>Individuálne priradené prehiladky: </h2>
-    <ul>
-    {% for rulesExamination in individualRulesExaminations %}
-        <li>{{ rulesExamination.examinationTypeId }}</li>
-    {% empty %}
-        <li>žiadne prehliadky</li>
-    {% endfor %}
-    </ul>
-    <script>
-        url_complicated1="{% url 'employeeExaminationsUpdate' employee.id %}"
-        url_complicated2="{% url 'employeeDelete' employee.id %}"
-    </script>
-    <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť</button>
+    <div>
+        <h2>Povinné prehiladky z pozície: </h2>
+        <ul>
+            {% for examination in positionRulesExaminations %}
+                <li>{{ examination.name }}</li>
+            {% empty %}
+                <li>žiadne prehliadky</li>
+            {% endfor %}
+            </ul>
+    </div>
+    <div>
+        <h2>Povinné prehiladky zo zmennosti: </h2>
+        <ul>
+            {% for examination in shiftRulesExaminations %}
+                <li>{{ examination.name }}</li>
+            {% empty %}
+                <li>žiadne prehliadky</li>
+            {% endfor %}
+            </ul>
+    </div>
+    <div>
+        <h2>Individuálne priradené prehiladky: </h2>
+        <ul>
+        {% for examination in individualRulesExaminations %}
+            <li>{{ examination.name }}</li>
+        {% empty %}
+            <li>žiadne prehliadky</li>
+        {% endfor %}
+        </ul>
+        <script>
+            url_complicated1="{% url 'employeeExaminationsUpdate' employee.id %}"
+            url_complicated2="{% url 'employeeDelete' employee.id %}"
+        </script>
+        <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť</button>
+    </div>
 </div>
 
 <td>
-    <button class="button-regular" role="button" onclick="location.href=url_complicated2">Vymazať</button>
+    <button class="button-regular" role="button" onclick="location.href=url_complicated2">Vymazať Zamestnanca</button>
 </td>
 </div>
 </div>

@@ -24,13 +24,13 @@ class ExaminationTypeDetail(LoginRequiredMixin, DetailView):
 class ExaminationTypeCreate(LoginRequiredMixin, CreateView):
     model = ExaminationType
     fields = '__all__'
-    success_url = reverse_lazy('examinatontypes')
+    success_url = reverse_lazy('examinationtypes')
 
 
 class ExaminationTypeUpdate(LoginRequiredMixin, UpdateView):
     model = ExaminationType
     fields = '__all__'
-    success_url = reverse_lazy('examinatontypes')
+    success_url = reverse_lazy('examinationtypes')
     context_object_name = 'examinatonType'
 
 
