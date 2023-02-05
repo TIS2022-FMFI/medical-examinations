@@ -81,10 +81,26 @@ class ShiftRuleDelete(LoginRequiredMixin, DeleteView):
     model = ShiftRule
     success_url = reverse_lazy('shifts')
 
+    
+
 
 # ############################          Department      ###########################
 class DepartmentList(LoginRequiredMixin, ListView):
-    model = Department
+    # model = Department
+    template_name = "rule\department_list.html"
+    context_object_name = 'departments_list'
+
+    def get_queryset(self):
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT
+                    department.id, department.name,
+                    city.id cityId, city.name cityName
+                FROM rule_department department
+                LEFT JOIN rule_city city ON department.cityId_id = city.id
+            """)
+            return dictfetchall(cursor)
+        return []
 
 
 class DepartmentDetail(LoginRequiredMixin, DetailView):
@@ -181,9 +197,11 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
         departmentIdSetInForm = form.cleaned_data['department']
         examinationsSetInForm = set(form.cleaned_data['examinatoins'])
 
-        examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
-        departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
+        
         with transaction.atomic(): # start transaction
+            examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
+            departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
+
             positionRule.name = nameSetInForm
             positionRule.departmentId = departmentSetInForm
             positionRule.save() # save changes

@@ -12,11 +12,10 @@
         <th></th>
     </tr>
     </thead>
-    {% for department in object_list  %}
+    {% for department in departments_list  %}
     <tr>
-
-        <td><a href="{% url 'departmentUpdate' department.id %}">{{department.name}}</a></td>
-        <td><a href="{% url 'cityUpdate' department.cityId.id %}">{{department.name}}</a></td>
+        <td><a href="{% url 'departmentUpdate' department.id %}">{{department.name}}</a></td> 
+        <td><a href="{% url 'cityUpdate' department.cityId %}">{{department.cityName}}</a></td>
         <td><a href="{% url 'departmentDelete' department.id %}">delete</a></td>
     </tr>  
     {% empty %}
