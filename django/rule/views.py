@@ -181,9 +181,11 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
         departmentIdSetInForm = form.cleaned_data['department']
         examinationsSetInForm = set(form.cleaned_data['examinatoins'])
 
-        examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
-        departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
+        
         with transaction.atomic(): # start transaction
+            examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
+            departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
+
             positionRule.name = nameSetInForm
             positionRule.departmentId = departmentSetInForm
             positionRule.save() # save changes
