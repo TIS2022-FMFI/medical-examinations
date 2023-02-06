@@ -1,20 +1,22 @@
 {% extends 'general.html' %}
 {% block content %}
-<button class="button-regular" role="button" onclick="window.location.href='create/';">Add examination type</button>
+<div class="form-center-div">
+<button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať typ prehliadky</button>
+</div>
 <div class="form-regular-div">
 <table>
-    <caption>Examination type list</caption>
+    <caption>Zoznam typov prehliadok</caption>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Periodicity</th>
+        <th>Názov</th>
+        <th>Periodicita</th>
     </tr>
     </thead>
 
     <tbody>
         {% for et in examinatonTypes %}
         <tr>
-            <td><a href="{% url 'examinationTypeUpdate' et.id %}">{{et.name}}</a></td>
+            <td><a href="{% url 'examinationTypeUpdate' et.id %}" class="hover">{{et.name}}</a></td>
             <td data-title="Periodicity">{{et.periodicity}}</td>
         </tr>
     </tbody>
