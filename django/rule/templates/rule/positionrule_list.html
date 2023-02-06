@@ -1,7 +1,9 @@
 {% extends 'general.html' %}
 {% block content %}
+<div class="form-center-div">
 
 <button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať pozíciu</button>
+</div>
 <div class="form-regular-div">
 
 <table>
@@ -15,9 +17,9 @@
     </thead>
     {% for positionRule in object_list  %}
     <tr>
-        <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}">{{positionRule.position_name}}</a></td>
-        <td><a href="{% url 'departmentUpdate' positionRule.department_id %}">{{positionRule.department_name}}</a></td>
-        <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}">delete</a></td>
+        <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}" class="hover">{{positionRule.position_name}}</a></td>
+        <td><a href="{% url 'departmentUpdate' positionRule.department_id %}" class="hover">{{positionRule.department_name}}</a></td>
+        <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}" class="hover">Vymazať</a></td>
     </tr>
     {% empty %}
         <h3>Žiadne pozície</h3>

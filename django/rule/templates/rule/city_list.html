@@ -1,6 +1,8 @@
 {% extends 'general.html' %}
 {% block content %}
+<div class="form-center-div">
 <button class="button-regular" role="button" onclick="window.location.href='create/';">Pridať mesto</button>
+</div>
 <div class="form-regular-div">
 <table>
     <caption>Zoznam miest</caption>
@@ -12,8 +14,8 @@
     </thead>
     {% for city in object_list  %}
     <tr>
-        <td><a href="{% url 'cityUpdate' city.id %}">{{city.name}}</a></td>
-        <td><a href="{% url 'cityDelete' city.id %}">delete</a></td>
+        <td><a href="{% url 'cityUpdate' city.id %}" class="hover">{{city.name}}</a></td>
+        <td><a href="{% url 'cityDelete' city.id %}" class="hover">Vymazať</a></td>
     </tr>  
     {% empty %}
         <h3>Žiadne mestá</h3>
