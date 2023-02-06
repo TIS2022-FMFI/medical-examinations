@@ -21,7 +21,6 @@ class CustomLoginView(LoginView):
         return reverse_lazy('employees')
 
 
-
 class MyUserCreationForm(LoginRequiredMixin, UserCreationForm):
     email = forms.EmailField(required=True)
 

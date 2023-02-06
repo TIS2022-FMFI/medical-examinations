@@ -29,7 +29,7 @@
         <tr>
             <td>{{ passed.date }}</td>
             <td>{{ passed.examinationName }}</td>
-            <td><a href="{% url 'passedExaminationDelete' passed.id context.employee.id %}">delete</a></td>
+            <td><a href="{% url 'passedExaminationDelete' passed.id context.employee.id %}"></a>delete</a></td>
         </tr>
         {% empty %}
             <h3>Žiadne absolvavane prehliadky</h3>

@@ -9,8 +9,6 @@ from examinationType.models import ExaminationType
 from rule.models import ShiftRule
 
 
-
-
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
     desc = cursor.description
@@ -71,6 +69,7 @@ class EditForm(forms.Form):
 class ChoiceForm(forms.Form):
     choicesField = forms.MultipleChoiceField(
             required=False, 
+            label="Prehliadky",
             widget=forms.CheckboxSelectMultiple()
         )
 
@@ -86,12 +85,12 @@ class ChoiceForm(forms.Form):
         self.fields['choicesField'].initial = initials
 
 
-
 class AbsolvedExaminationsChoiceForm(forms.Form):
     choicesField = forms.MultipleChoiceField(
-            widget  = forms.CheckboxSelectMultiple()
+            label="Prehliadky", 
+            widget=forms.CheckboxSelectMultiple()
         )
-    date = forms.DateField(widget=DateInput)
+    date = forms.DateField(label="Dátum", widget=DateInput)
 
     def __init__(self, employeeId, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -99,10 +98,18 @@ class AbsolvedExaminationsChoiceForm(forms.Form):
 
         employee = get_object_or_404(Employee, id=employeeId)
 
-        choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
-                        for i in RulesExamination.objects.filter(
-                            Q(ruleId = employee.hiddenRuleId.ruleId) |
-                            Q(ruleId = employee.shiftRuleId.ruleId) |
-                            Q(ruleId = employee.hiddenRuleId.ruleId)
-                            ))
+        if(employee.hiddenRuleId != None):
+            choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
+                            for i in RulesExamination.objects.filter(
+                                Q(ruleId = employee.positionRuleId.ruleId) |
+                                Q(ruleId = employee.shiftRuleId.ruleId) |
+                                Q(ruleId = employee.hiddenRuleId.ruleId)
+                                ))
+        else:
+           choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
+                            for i in RulesExamination.objects.filter(
+                                Q(ruleId = employee.positionRuleId.ruleId) |
+                                Q(ruleId = employee.shiftRuleId.ruleId)
+                                ))
+
         self.fields['choicesField'].choices = choices
