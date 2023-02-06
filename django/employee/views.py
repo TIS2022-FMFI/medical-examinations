@@ -30,10 +30,15 @@ class EmployeeList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeList, self).get_context_data(**kwargs)
-        context['Position_rules_list'] = PositionRule.objects.all()
-        context['Department_rules_list'] = Department.objects.all()
-        context['City_rules_list'] = City.objects.all()
-        context['Shift_rules_list'] = ShiftRule.objects.all()
+        
+        context['Position_rules_list'] = [dict(name="--")]
+        context['Position_rules_list'].extend(PositionRule.objects.all())
+        context['Department_rules_list'] = [dict(name="--")]
+        context['Department_rules_list'].extend(Department.objects.all())
+        context['City_rules_list'] = [dict(name="--")]
+        context['City_rules_list'].extend(City.objects.all())
+        context['Shift_rules_list'] = [dict(name="--")]
+        context['Shift_rules_list'].extend(ShiftRule.objects.all())
         return context
 
     def get_queryset(self):

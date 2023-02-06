@@ -158,12 +158,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SMTP Configuration
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gamail.com'
-EMAIL_PORT = 587 # gmail smtp configration
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '' # email_for_sending_msgs
-EMAIL_HOST_PASSWORD = '' # password_to_that_email
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail002.nameserver.sk'
+EMAIL_PORT = 465 # gmail smtp configration
+# EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hr-prehliadky@gefcoslovakia.sk' # email_for_sending_msgs
+EMAIL_HOST_PASSWORD = 'Ozq]^6}Hyu*' # password_to_that_email
 
 
 LOGGING = {
