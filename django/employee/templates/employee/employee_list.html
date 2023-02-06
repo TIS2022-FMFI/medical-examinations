@@ -5,33 +5,33 @@
 <button class="button-regular" role="button" onclick="window.location.href='create/';">pridať zamestnanca</button>
 </div>
 <div class="search-engine">
-    
-<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="name" onkeydown="search();">
-<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="id" onkeydown="search();">
 
-<select name="pozicie" id="posit" onchange="search();">
+<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="name" onkeydown="">
+<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="id" onkeydown="">
+
+<select name="pozicie" id="posit" onchange="">
     {% for result in Position_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
-</select>   
- 
-<select name="pozicie" id="depart" onchange="search();">
+</select>
+
+<select name="pozicie" id="depart" onchange="">
     {% for result in Department_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
 </select>  
 
-<select name="pozicie" id="city" onchange="search();">
+<select name="pozicie" id="city" onchange="">
     {% for result in City_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
-</select>  
+</select>
 
-<select name="pozicie" id="shift" onchange="search();">
+<select name="pozicie" id="shift" onchange="">
     {% for result in Shift_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
-</select>  
+</select>
 <button class="button-regular" role="button" onclick="search();">search</button>
 </div>
 <div class="form-regular-div">
