@@ -32,13 +32,13 @@ class EmployeeList(LoginRequiredMixin, ListView):
         context = super(EmployeeList, self).get_context_data(**kwargs)
         
         context['Position_rules_list'] = [dict(name="--")]
-        context['Position_rules_list'].extend(PositionRule.objects.all())
+        context['Position_rules_list'].extend(PositionRule.objects.all().order_by('name'))
         context['Department_rules_list'] = [dict(name="--")]
-        context['Department_rules_list'].extend(Department.objects.all())
+        context['Department_rules_list'].extend(Department.objects.all().order_by('name'))
         context['City_rules_list'] = [dict(name="--")]
-        context['City_rules_list'].extend(City.objects.all())
+        context['City_rules_list'].extend(City.objects.all().order_by('name'))
         context['Shift_rules_list'] = [dict(name="--")]
-        context['Shift_rules_list'].extend(ShiftRule.objects.all())
+        context['Shift_rules_list'].extend(ShiftRule.objects.all().order_by('name'))
         return context
 
     def get_queryset(self):
