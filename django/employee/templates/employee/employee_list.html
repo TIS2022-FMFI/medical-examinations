@@ -54,7 +54,7 @@
         <td>{{ employee.departmentName }}</td>
         <td>{{ employee.cityName }}</td>
         <td>{{ employee.shiftName }}</td>
-        <td>{% if employee.days_to_expiration == None %}
+        <td>{% if employee.days_to_expiration == -999999 %}
                 NEMÁ
             {% else %}
                 {{employee.days_to_expiration }}
