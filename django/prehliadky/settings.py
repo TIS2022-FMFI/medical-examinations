@@ -86,14 +86,25 @@ WSGI_APPLICATION = 'prehliadky.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',          # _psycopg2
+#         'NAME': 'prehliadky',
+#         'USER': 'prehliadky',
+#         'PASSWORD': 'Gv3yjnctg:',
+#         'HOST': 'mysql80.r2.websupport.sk',
+#         'PORT': '3314',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',          # _psycopg2
-        'NAME': 'prehliadky',
-        'USER': 'prehliadky',
-        'PASSWORD': 'Gv3yjnctg:',
-        'HOST': 'mysql80.r2.websupport.sk',
-        'PORT': '3314',
+        'NAME': 'prehliadky_verzia_5_7',
+        'USER': 'prehliadky_5_7',
+        'PASSWORD': 'Wb191BQ[Jz',
+        'HOST': 'mysql57.r2.websupport.sk',
+        'PORT': '3311',
     }
 }
 
