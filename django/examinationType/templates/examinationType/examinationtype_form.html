@@ -11,7 +11,14 @@
     {% endif %}
     <form method="POST" action="" >
         {% csrf_token %}
-        {{form.as_p}}
+        <p>
+            <label for="{{form.name.auto_id}}">Názov:</label>
+            {{form.name}}
+        </p>
+        <p>
+            <label for="{{form.periodicity.auto_id}}">Pravideľnosť:</label>
+            {{form.periodicity}}
+        </p>
         <input type="submit" class="form-regular-submit" value="Uložiť">
     </form>
 

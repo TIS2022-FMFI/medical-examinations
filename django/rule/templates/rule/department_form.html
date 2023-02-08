@@ -11,7 +11,14 @@
 <button class="button-regular" role="button" onclick="window.location.href='/department/';">Späť</button>
 <form method="POST" action="">
     {% csrf_token %}
-    {{form.as_p}}
+    <p>
+        <label for="{{form.name.auto_id}}">Názov:</label>
+        {{form.name}}
+    </p>
+    <p>
+        <label for="{{form.cityId.auto_id}}">Mesto:</label>
+        {{form.cityId}}
+    </p>
     <input type="submit" value="Uložiť" class="form-regular-submit">
 </form>
 </div>
