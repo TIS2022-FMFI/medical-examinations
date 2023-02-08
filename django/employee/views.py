@@ -49,6 +49,7 @@ class EmployeeList(LoginRequiredMixin, ListView):
                     department.name as departmentName,
                     city.name as cityName,
                     shift.name as shiftName,
+                    DATEDIFF(employee.exceptionExpirationDate, now()) exception_days_to_expiration,
                     MIN(IFNULL(CAST(examinationType.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999)) days_to_expiration
                 FROM employee_employee employee
                 LEFT JOIN rule_positionrule position ON employee.positionRuleId_id = position.id
@@ -60,7 +61,7 @@ class EmployeeList(LoginRequiredMixin, ListView):
                 LEFT JOIN examinationType_examinationtype examinationType ON rulesExamination.examinationTypeId_id = examinationType.id
                 LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.employeeId_id = employee.id AND passedExamination.examinationTypeId_id = examinationType.id
                 GROUP BY employee.id
-                ORDER BY days_to_expiration, employee.surname, employee.name
+                ORDER BY exception_days_to_expiration IS null, exception_days_to_expiration, days_to_expiration, employee.surname, employee.name
             """)
             return dictfetchall(cursor)
         return []
