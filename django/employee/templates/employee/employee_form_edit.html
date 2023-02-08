@@ -4,14 +4,18 @@
 <div class="form-center-div">
 <div class="form-regular-div">
 <h1>Upraviť zamestnanca</h1>
-
-<button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
-
+<br>
+<p>
+    <button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
+</p>
+<br>
+<p>
 <form method="POST" action="">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Uložiť" class="form-regular-submit">
 </form>
+</p>
 </div>
 <br>
 <div>
@@ -101,10 +105,11 @@
         <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť individuálne prehliadky</button>
     </p>
 </div>
-
-<td>
+<br>
+<p>
     <button class="button-regular" role="button" onclick="location.href=url_complicated2">Vymazať Zamestnanca</button>
-</td>
+</p>
+<br>
 </div>
 </div>
 {% endblock content%}
