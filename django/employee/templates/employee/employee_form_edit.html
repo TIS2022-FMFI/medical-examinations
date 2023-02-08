@@ -13,7 +13,7 @@
     <input type="submit" value="Uložiť" class="form-regular-submit">
 </form>
 </div>
-
+<br>
 <div>
     <script>
         url_complicated3="{% url 'employeeAbsolvedEdit' employee.id %}"
@@ -25,43 +25,81 @@
 <button class="button-regular" role="button" onclick="location.href=url_complicated4">historia absolvovaných prehliadkok</button>
 
 </div>
-
+<br>
 <div>
-    <div>
-        <h2>Povinné prehiladky z pozície: </h2>
-        <ul>
-            {% for examination in positionRulesExaminations %}
-                <li>{{ examination.name }}</li>
-            {% empty %}
-                <li>žiadne prehliadky</li>
-            {% endfor %}
-            </ul>
-    </div>
-    <div>
-        <h2>Povinné prehiladky zo zmennosti: </h2>
-        <ul>
-            {% for examination in shiftRulesExaminations %}
-                <li>{{ examination.name }}</li>
-            {% empty %}
-                <li>žiadne prehliadky</li>
-            {% endfor %}
-            </ul>
-    </div>
-    <div>
-        <h2>Individuálne priradené prehiladky: </h2>
-        <ul>
-        {% for examination in individualRulesExaminations %}
-            <li>{{ examination.name }}</li>
-        {% empty %}
-            <li>žiadne prehliadky</li>
-        {% endfor %}
-        </ul>
+    <p>
+        <table id="myList">
+            <caption>Povinné prehiladky z pozície</caption>
+            <thead>
+                <th>Názov prehliadky</th>
+                <th>Počet dní do expirácie</th>
+            </thead>
+                {% for examination in positionRulesExaminations %}
+                    <tr>
+                        <td>{{ examination.name }}</td> 
+                        <td>{% if examination.days_to_expiration == -999999 %}
+                            NEMÁ
+                        {% else %}
+                            {{examination.days_to_expiration }}
+                        {% endif %}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="2">žiadne prehliadky</td></tr>
+                {% endfor %}
+        </table>
+    </p>
+    <br>
+    <p>
+        <table id="myList">
+            <caption>Povinné prehiladky zo zmennosti</caption>
+            <thead>
+                <th>Názov prehliadky</th>
+                <th>Počet dní do expirácie</th>
+            </thead>
+                {% for examination in shiftRulesExaminations %}
+                    <tr>
+                        <td>{{ examination.name }}</td> 
+                        <td>{% if examination.days_to_expiration == -999999 %}
+                            NEMÁ
+                        {% else %}
+                            {{examination.days_to_expiration }}
+                        {% endif %}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="2">žiadne prehliadky</td></tr>
+                {% endfor %}
+        </table>
+    </p>
+    <br>
+    <p>
+        <table id="myList">
+            <caption>Individuálne priradené prehiladky</caption>
+            <thead>
+                <th>Názov prehliadky</th>
+                <th>Počet dní do expirácie</th>
+            </thead>
+                {% for examination in individualRulesExaminations %}
+                    <tr>
+                        <td>{{ examination.name }}</td> 
+                        <td>{% if examination.days_to_expiration == -999999 %}
+                            NEMÁ
+                        {% else %}
+                            {{examination.days_to_expiration }}
+                        {% endif %}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="2">žiadne prehliadky</td></tr>
+                {% endfor %}
+        </table>
+    <p>
+    <br>
+    </p>
         <script>
             url_complicated1="{% url 'employeeExaminationsUpdate' employee.id %}"
             url_complicated2="{% url 'employeeDelete' employee.id %}"
         </script>
-        <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť</button>
-    </div>
+        <button class="button-regular" role="button" onclick="location.href=url_complicated1">Upraviť individuálne prehliadky</button>
+    </p>
 </div>
 
 <td>

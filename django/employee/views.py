@@ -128,33 +128,42 @@ class EmployeeUpdate(LoginRequiredMixin, FormView):
             if(employee['positionRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id  AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['positionRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['positionRuleId']])
                 context['positionRulesExaminations'] = dictfetchall(cursor)
 
             context['shiftRulesExaminations'] = []
             if(employee['shiftRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['shiftRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['shiftRuleId']])
                 context['shiftRulesExaminations'] = dictfetchall(cursor)
 
             context['individualRulesExaminations'] = []
             if(employee['hiddenRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['hiddenRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['hiddenRuleId']])
                 context['individualRulesExaminations'] = dictfetchall(cursor)       
         
         return context
