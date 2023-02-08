@@ -15,7 +15,7 @@
     {% for city in object_list  %}
     <tr>
         <td><a href="{% url 'cityUpdate' city.id %}" class="hover">{{city.name}}</a></td>
-        <td><a href="{% url 'cityDelete' city.id %}" class="hover">Vymazať</a></td>
+        <td><a href="{% url 'cityDelete' city.id %}" class="hover">Zmazať</a></td>
     </tr>  
     {% empty %}
         <h3>Žiadne mestá</h3>

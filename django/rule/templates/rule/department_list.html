@@ -17,7 +17,7 @@
     <tr>
         <td><a href="{% url 'departmentUpdate' department.id %}" class="hover">{{department.name}}</a></td> 
         <td><a href="{% url 'cityUpdate' department.cityId %}" class="hover">{{department.cityName}}</a></td>
-        <td><a href="{% url 'departmentDelete' department.id %}" class="hover">Vymazať</a></td>
+        <td><a href="{% url 'departmentDelete' department.id %}" class="hover">Zmazať</a></td>
     </tr>  
     {% empty %}
         <h3>Žiadne oddelenia</h3>
