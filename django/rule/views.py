@@ -97,6 +97,16 @@ class ShiftRuleDelete(LoginRequiredMixin, DeleteView):
     model = ShiftRule
     success_url = reverse_lazy('shifts')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM employee_employee e
+                        WHERE e.shiftRuleId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
+
     
 
 
@@ -139,6 +149,16 @@ class DepartmentDelete(LoginRequiredMixin, DeleteView):
     model = Department
     success_url = reverse_lazy('departments')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM rule_positionrule p
+                        WHERE p.departmentId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
+
 
 # ############################          City            ###########################
 class CityList(LoginRequiredMixin, ListView):
@@ -164,6 +184,16 @@ class CityUpdate(LoginRequiredMixin, UpdateView):
 class CityDelete(LoginRequiredMixin, DeleteView):
     model = City
     success_url = reverse_lazy('cities')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM rule_department d
+                        WHERE d.cityId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
 
 
 # ############################      PositionRule        ###########################
@@ -256,3 +286,13 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
 class PositionRuleDelete(LoginRequiredMixin, DeleteView):
     model = PositionRule
     success_url = reverse_lazy('rules')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM employee_employee e
+                        WHERE e.positionRuleId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
