@@ -4,10 +4,35 @@
 <h1>Delete</h1>
 <button class="button-regular" role="button" onclick="window.location.href='/examinationtype/';">Späť</button>
 
-<form method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete this examination type "{{examinatonType.name}} {{examinatonType.surname}}"?</p>
-    <input type = "submit" value="Delete" class="form-regular-submit"/>
-</form>
+    {% if zavislostiPassedExamination or zavislostiPosition %}
+        <p>Nie je možné zmazať typ prehliadky "{{examinatonType.name}}" z dôvodu nasledujúcich závislostí:</p>
+
+        <br><br>
+        {% for zavislost in zavislostiPassedExamination %}
+            <p>prejdená prehliadka zamestnanca "{{ zavislost.menoZamestnanca }} {{ zavislost.priezviskoZamestnanca }}"
+            z dátumu {{ zavislost.datum }}</p>
+        {% endfor %}
+
+        {% for zavislost in zavislostiPosition %}
+            <p>pozícia "{{ zavislost.nazovPozicie }}"</p>
+        {% endfor %}
+
+        {% for zavislost in zavislostiShift %}
+            <p>zmennosť "{{ zavislost.nazovZmennosti }}"</p>
+        {% endfor %}
+
+        {% for zavislost in zavislostiHidden %}
+            <p>Individuálne priradená prehiladka zamestnanca "{{ zavislost.name }} {{ zavislost.surname }}"</p>
+        {% endfor %}
+        <br><br>
+
+    {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <p>Ste si istý, že chcete zmazať typ prehliadky "{{examinatonType.name}}"?</p>
+            <input type = "submit" value="Delete" class="form-regular-submit"/>
+        </form>
+    {% endif %}
+
 </div>
 {% endblock content%}
