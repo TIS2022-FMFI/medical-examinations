@@ -4,10 +4,24 @@
 <h1>VYMAZAŤ</h1>
 <button class="button-regular" role="button" onclick="window.location.href='/department/';">Späť</button>
 
-<form method="POST">
-    {% csrf_token %}
-    <p>Ste si istý, že chcete vymazať oddelenie "{{department.name}}"?</p>
-    <input type = "submit" value="Vymazať" class="form-regular-submit"/>
-</form>
+    {% if zavislosti %}
+        <br><br>
+        <p>Nie je možné zmazať oddelenie "{{department.name}}" z dôvodu nasledujúcich závislostí:</p>
+        {% for zavislost in zavislosti %}
+            <p>pozícia "{{ zavislost.name }}"</p>
+        {% endfor %}
+        <br><br>
+        <p>Všetky tieto pozície bude treba najskôr zmazať.</p>
+    {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <p>Ste si istý, že chcete vymazať oddelenie "{{department.name}}"?</p>
+            <input type = "submit" value="Vymazať" class="form-regular-submit"/>
+        </form>
+    {% endif %}
+
+
+
+
 </div>
 {% endblock content%}
