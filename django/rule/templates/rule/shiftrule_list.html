@@ -16,7 +16,7 @@
     {% for shift in object_list  %}
     <tr>
         <td><a href="{% url 'shiftUpdate' shift.id %}" class="hover">{{shift.name}}</a></td>
-        <td><a href="{% url 'shiftDelete' shift.id %}" class="hover">Vymazať</a></td>
+        <td><a href="{% url 'shiftDelete' shift.id %}" class="hover">Zmazať</a></td>
     </tr>  
     {% empty %}
         <h3>No rules</h3>
