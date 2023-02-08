@@ -11,6 +11,8 @@ from django.contrib.auth.hashers import make_password
 
 from django.urls import reverse_lazy
 
+from django.contrib.auth import views as auth_views
+
 class CustomLoginView(LoginView):
     template_name = 'authentication/login.html'
     fields = '__all__'
@@ -37,3 +39,7 @@ class RegisterView(LoginRequiredMixin, FormView):
             email=form.cleaned_data['email'],
             password=make_password(User.objects.make_random_password()))
         return super(RegisterView, self).form_valid(form)
+
+
+class MyPasswordResetView(auth_views.PasswordResetView):
+    email_template_name = "authentication/password_reset_email.html"
