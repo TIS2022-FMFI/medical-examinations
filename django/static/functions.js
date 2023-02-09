@@ -1,4 +1,3 @@
-
 function search() {
     var input1, input2, input3, input4, input5, input6, filter1, filter2, filter3, filter4, filter5, filter6, table, tr, td1, td2, td3, td4, td5, td6, i;
     input1 = document.getElementById("name");
@@ -41,196 +40,196 @@ function search() {
             }
         }
     }
-for (i = 0; i < tr.length; i++) {
-  if(input2.value === ""){
-    break;
-  }
- td2 = tr[i].getElementsByTagName("td")[1];
-  if (td2) {
-    if (td2.innerHTML.toUpperCase().indexOf(filter2) > -1) {
-      continue;
-    } else {
-        tr[i].style.display = "none";
-      }
-  }
-}
-for (i = 0; i < tr.length; i++) {
-  if(input3.value === "--"){
-    break;
-  }
-  td3 = tr[i].getElementsByTagName("td")[2];
-  if (td3) {
+    for (i = 0; i < tr.length; i++) {
+        if (input2.value === "") {
+            break;
+        }
+        td2 = tr[i].getElementsByTagName("td")[1];
+        if (td2) {
+            if (td2.innerHTML.toUpperCase().indexOf(filter2) > -1) {
+                continue;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    for (i = 0; i < tr.length; i++) {
+        if (input3.value === "--") {
+            break;
+        }
+        td3 = tr[i].getElementsByTagName("td")[2];
+        if (td3) {
 
-    if (td3.innerHTML.toUpperCase().indexOf(filter3) > -1) {
-      continue;
-    } else {
-        tr[i].style.display = "none";
-      }
-  }
-}
-for (i = 0; i < tr.length; i++) {
-  if(input4.value === "--"){
-    break;
-  }
-  td4 = tr[i].getElementsByTagName("td")[3];
-  if (td4) {
-    if (td4.innerHTML.toUpperCase().indexOf(filter4) > -1) {
-      continue;
-    } else {
-        tr[i].style.display = "none";
-      }
-  }
-}
-for (i = 0; i < tr.length; i++) {
-  if(input5.value === "--"){
-    break;
-  }
-  td5 = tr[i].getElementsByTagName("td")[4];
-  if (td5) {
-    if (td5.innerHTML.toUpperCase().indexOf(filter5) > -1) {
-      continue;
-    } else {
-        tr[i].style.display = "none";
-      }
-  }
-}
-for (i = 0; i < tr.length; i++) {
-  if(input6.value === "--"){
-    break;
-  }
-td6 = tr[i].getElementsByTagName("td")[5];
-  if (td6) {
-    if (td6.innerHTML.toUpperCase().indexOf(filter6) > -1) {
-      continue;
-    } else {
-        tr[i].style.display = "none";
-      }
-  }
- }
+            if (td3.innerHTML.toUpperCase().indexOf(filter3) > -1) {
+                continue;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    for (i = 0; i < tr.length; i++) {
+        if (input4.value === "--") {
+            break;
+        }
+        td4 = tr[i].getElementsByTagName("td")[3];
+        if (td4) {
+            if (td4.innerHTML.toUpperCase().indexOf(filter4) > -1) {
+                continue;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    for (i = 0; i < tr.length; i++) {
+        if (input5.value === "--") {
+            break;
+        }
+        td5 = tr[i].getElementsByTagName("td")[4];
+        if (td5) {
+            if (td5.innerHTML.toUpperCase().indexOf(filter5) > -1) {
+                continue;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+    for (i = 0; i < tr.length; i++) {
+        if (input6.value === "--") {
+            break;
+        }
+        td6 = tr[i].getElementsByTagName("td")[5];
+        if (td6) {
+            if (td6.innerHTML.toUpperCase().indexOf(filter6) > -1) {
+                continue;
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
 
 function search_by_name() {
     // Declare variables
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("name");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("name");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
         }
-      }
-  }
+    }
+}
 
-  function search_by_id() {
+function search_by_id() {
     // Declare variables
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("id");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("id");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[1];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
         }
-      }
-  }
+    }
+}
 
-  function search_by_position() {
+function search_by_position() {
     // Declare variables
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("posit");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("posit");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[2];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
         }
-      }
-  }
+    }
+}
 
-  function search_by_department() {
+function search_by_department() {
     // Declare variables
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("depart");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("depart");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[3];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
         }
-      }
-  }
+    }
+}
 
-  function search_by_city() {
+function search_by_city() {
     // Declare variables
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("city");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("city");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[4];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
         }
-      }
-  }
+    }
+}
 
-  function search_by_shift() {
+function search_by_shift() {
     // Declare variables 
-     var input, filter, table, tr, td, i;
-      input = document.getElementById("shift");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myList");
-      tr = table.getElementsByTagName("tr");
- 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("shift");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myList");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[5];
         if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-              tr[i].style.display = "none";
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
-        } 
-      }
-  }
+        }
+    }
+}
