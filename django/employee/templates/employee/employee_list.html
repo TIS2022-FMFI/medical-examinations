@@ -6,28 +6,28 @@
 </div>
 <div class="search-engine">
 
-<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="name" onkeydown="">
-<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="id" onkeydown="">
+<input type="text" name="search" placeholder="Vyhladavanie podla mena" class="search-input" id="name" onchange="search();" onkeydown="search();" oncut="search();" onpaste="search();">
+<input type="number" name="search" placeholder="Vyhladavanie podla id" class="search-input" id="id" onchange="search();">
 
-<select name="pozicie" id="posit" onchange="">
+<select name="pozicie" id="posit" onchange="search();">
     {% for result in Position_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
 </select>
 
-<select name="pozicie" id="depart" onchange="">
+<select name="pozicie" id="depart" onchange="search();">
     {% for result in Department_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
 </select>  
 
-<select name="pozicie" id="city" onchange="">
+<select name="pozicie" id="city" onchange="search();">
     {% for result in City_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
 </select>
 
-<select name="pozicie" id="shift" onchange="">
+<select name="pozicie" id="shift" onchange="search();">
     {% for result in Shift_rules_list %}
     <option>{{ result.name }}</option>
     {% endfor %}
