@@ -19,7 +19,7 @@
     <tr>
         <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}" class="hover">{{positionRule.position_name}}</a></td>
         <td><a href="{% url 'departmentUpdate' positionRule.department_id %}" class="hover">{{positionRule.department_name}}</a></td>
-        <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}" class="hover">Vymazať</a></td>
+        <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}" class="hover">Zmazať</a></td>
     </tr>
     {% empty %}
         <h3>Žiadne pozície</h3>

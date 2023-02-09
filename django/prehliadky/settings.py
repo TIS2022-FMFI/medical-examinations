@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-e#iw^^b67=m(32!oy_km7h=@8476n7vc4^-s4f=aed7+vz)i#c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    ]
+
+CSRF_TRUSTED_ORIGINS = ['https://hr-prehliadky.gefcoslovakia.sk']
 
 
 # Application definition
@@ -81,14 +86,25 @@ WSGI_APPLICATION = 'prehliadky.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',          # _psycopg2
+#         'NAME': 'prehliadky',
+#         'USER': 'prehliadky',
+#         'PASSWORD': 'Gv3yjnctg:',
+#         'HOST': 'mysql80.r2.websupport.sk',
+#         'PORT': '3314',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',          # _psycopg2
-        'NAME': 'prehliadky',
-        'USER': 'prehliadky',
-        'PASSWORD': 'Gv3yjnctg:',
-        'HOST': 'mysql80.r2.websupport.sk',
-        'PORT': '3314',
+        'NAME': 'prehliadky_verzia_5_7',
+        'USER': 'prehliadky_5_7',
+        'PASSWORD': 'Wb191BQ[Jz',
+        'HOST': 'mysql57.r2.websupport.sk',
+        'PORT': '3311',
     }
 }
 
@@ -159,11 +175,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # SMTP Configuration
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gamail.com'
-EMAIL_PORT = 587 # gmail smtp configration
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '' # email_for_sending_msgs
-EMAIL_HOST_PASSWORD = '' # password_to_that_email
+EMAIL_HOST = 'mail002.nameserver.sk'
+EMAIL_PORT = 465 # gmail smtp configration
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'hr-prehliadky@gefcoslovakia.sk' # email_for_sending_msgs
+EMAIL_HOST_PASSWORD = 'Ozq]^6}Hyu*' # password_to_that_email
+DEFAULT_FROM_EMAIL = 'hr-prehliadky@gefcoslovakia.sk'
 
 
 LOGGING = {

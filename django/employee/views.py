@@ -30,46 +30,38 @@ class EmployeeList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeList, self).get_context_data(**kwargs)
-        context['Position_rules_list'] = PositionRule.objects.all()
-        context['Department_rules_list'] = Department.objects.all()
-        context['City_rules_list'] = City.objects.all()
-        context['Shift_rules_list'] = ShiftRule.objects.all()
+        
+        context['Position_rules_list'] = [dict(name="--")]
+        context['Position_rules_list'].extend(PositionRule.objects.all().order_by('name'))
+        context['Department_rules_list'] = [dict(name="--")]
+        context['Department_rules_list'].extend(Department.objects.all().order_by('name'))
+        context['City_rules_list'] = [dict(name="--")]
+        context['City_rules_list'].extend(City.objects.all().order_by('name'))
+        context['Shift_rules_list'] = [dict(name="--")]
+        context['Shift_rules_list'].extend(ShiftRule.objects.all().order_by('name'))
         return context
 
     def get_queryset(self):
         with connection.cursor() as cursor:
             cursor.execute("""
                 SELECT employee.id, employee.name, employee.surname, employee.employeeId,
-                        position.name as positionName,
-                        department.name as departmentName,
-                        city.name as cityName,
-                        shift.name as shiftName,
-                        (
-                        SELECT days_to_expiration
-                        FROM
-                            (
-                            SELECT DISTINCT examinationType.id,
-                                    (
-                                        SELECT CAST(examinationType.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date)
-                                        FROM passedExamination_passedexaminations passedExamination
-                                        WHERE examinationType.id = passedExamination.examinationTypeId_id AND employee.id = passedExamination.employeeId_id
-                                        ORDER BY passedExamination.date
-                                        LIMIT 1
-                                    ) days_to_expiration
-                            FROM examinationType_examinationtype examinationType 
-                            LEFT JOIN rulesExamination_rulesexamination rulesExamination ON rulesExamination.examinationTypeId_id = examinationType.id
-                            LEFT JOIN rule_rule rule_p ON rule_p.id = rulesExamination.ruleId_id 
-                            WHERE rule_p.id = position.ruleId_id OR rule_p.id = shift.ruleId_id OR rule_p.id = hidden.ruleId_id
-                            LIMIT 1
-                            ) t
-                        ) days_to_expiration
+                    position.name as positionName,
+                    department.name as departmentName,
+                    city.name as cityName,
+                    shift.name as shiftName,
+                    DATEDIFF(employee.exceptionExpirationDate, now()) exception_days_to_expiration,
+                    MIN(IFNULL(CAST(examinationType.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999)) days_to_expiration
                 FROM employee_employee employee
                 LEFT JOIN rule_positionrule position ON employee.positionRuleId_id = position.id
                 LEFT JOIN rule_shiftrule shift ON employee.shiftRuleId_id = shift.id
                 LEFT JOIN rule_hiddenrule hidden ON employee.hiddenRuleId_id = hidden.id
                 LEFT JOIN rule_department as department on position.departmentId_id = department.id
                 LEFT JOIN rule_city as city on department.cityId_id = city.id
-                ORDER BY days_to_expiration;
+                LEFT JOIN rulesExamination_rulesexamination rulesExamination ON rulesExamination.ruleId_id = position.ruleId_id OR rulesExamination.ruleId_id = shift.ruleId_id OR rulesExamination.ruleId_id = hidden.ruleId_id
+                LEFT JOIN examinationType_examinationtype examinationType ON rulesExamination.examinationTypeId_id = examinationType.id
+                LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.employeeId_id = employee.id AND passedExamination.examinationTypeId_id = examinationType.id
+                GROUP BY employee.id
+                ORDER BY exception_days_to_expiration IS null, exception_days_to_expiration, days_to_expiration, employee.surname, employee.name
             """)
             return dictfetchall(cursor)
         return []
@@ -137,33 +129,42 @@ class EmployeeUpdate(LoginRequiredMixin, FormView):
             if(employee['positionRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id  AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['positionRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['positionRuleId']])
                 context['positionRulesExaminations'] = dictfetchall(cursor)
 
             context['shiftRulesExaminations'] = []
             if(employee['shiftRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['shiftRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['shiftRuleId']])
                 context['shiftRulesExaminations'] = dictfetchall(cursor)
 
             context['individualRulesExaminations'] = []
             if(employee['hiddenRuleId'] != None):
                 cursor.execute("""
                     SELECT
-                        examination.name
+                        examination.name,
+                        IFNULL(CAST(examination.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999) days_to_expiration
                     FROM rulesExamination_rulesexamination rulesExam
                     LEFT JOIN examinationType_examinationtype examination ON rulesExam.examinationTypeId_id = examination.id
+                    LEFT JOIN passedExamination_passedexaminations passedExamination ON passedExamination.examinationTypeId_id = examination.id AND passedExamination.employeeId_id = %s
                     WHERE rulesExam.ruleId_id = %s
-                """, employee['hiddenRuleId'])
+                    ORDER BY days_to_expiration, examination.name
+                """, [employee['id'], employee['hiddenRuleId']])
                 context['individualRulesExaminations'] = dictfetchall(cursor)       
         
         return context

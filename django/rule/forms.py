@@ -18,15 +18,11 @@ def dictfetchall(cursor):
 
 class PositionRuleEditForm(forms.Form):
     name = forms.CharField(label="Nazov")
-    department = forms.ChoiceField(label = "oddelenie", widget=forms.Select())
+    department = forms.ChoiceField(label = "Oddelenie", widget=forms.Select())
     examinatoins = forms.MultipleChoiceField(label="Prehliadky", widget = forms.CheckboxSelectMultiple())
 
-    def __init__(self, positionRuleId, *args, **kwargs):
+    def __init__(self, positionRuleId=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        positionRule = get_object_or_404(PositionRule, id=positionRuleId)
-        self.fields['name'].initial = positionRule.name
-
         with connection.cursor() as cursor:
             cursor.execute("""
                 SELECT 
@@ -39,11 +35,17 @@ class PositionRuleEditForm(forms.Form):
             departments = dictfetchall(cursor)    
 
         self.fields['department'].choices = [(i['id'], f"{i['name']} {i['cityName']}") for i in departments]
-        self.fields['department'].initial = positionRule.departmentId.id
-
+        
         self.fields['examinatoins'].required = False
         self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
-        self.fields['examinatoins'].initial = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId)]
+
+        if(positionRuleId != None):
+            positionRule = get_object_or_404(PositionRule, id=positionRuleId)
+            self.fields['name'].initial = positionRule.name
+            self.fields['department'].initial = positionRule.departmentId.id
+            self.fields['examinatoins'].initial = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId)]
+        else:
+            self.fields['department'].choices.append((None, "------"))
 
 
 
@@ -51,12 +53,13 @@ class ShiftRuleEditForm(forms.Form):
     name = forms.CharField(label="Nazov")
     examinatoins = forms.MultipleChoiceField(label="Prehliadky", widget = forms.CheckboxSelectMultiple())
 
-    def __init__(self, shiftRuleId, *args, **kwargs):
+    def __init__(self, shiftRuleId=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        shiftnRule = get_object_or_404(ShiftRule, id=shiftRuleId)
-        self.fields['name'].initial = shiftnRule.name
 
         self.fields['examinatoins'].required = False
         self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
-        self.fields['examinatoins'].initial = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = shiftnRule.ruleId)]
+
+        if(shiftRuleId != None):
+            shiftnRule = get_object_or_404(ShiftRule, id=shiftRuleId)
+            self.fields['name'].initial = shiftnRule.name
+            self.fields['examinatoins'].initial = [i.examinationTypeId.id for i in RulesExamination.objects.filter(ruleId = shiftnRule.ruleId)]

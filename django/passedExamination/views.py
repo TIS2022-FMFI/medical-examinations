@@ -25,13 +25,9 @@ class PassedExaminationsList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         context = dict()
+        
+        context['employee'] = get_object_or_404(Employee, id=self.kwargs['pk'])
         with connection.cursor() as cursor:
-            cursor.execute("""
-                SELECT employee.id, employee.name, employee.surname, employee.employeeId
-                FROM employee_employee AS employee WHERE employee.id = %s
-            """, [self.kwargs['pk']])
-            context['employee'] = dictfetchall(cursor)[0]
-
             cursor.execute("""
                 SELECT 
                     passed.id, passed.date,
@@ -43,6 +39,7 @@ class PassedExaminationsList(LoginRequiredMixin, ListView):
                 ORDER BY passed.date DESC
             """, [self.kwargs['pk']])
             context['passed_list'] = dictfetchall(cursor)
+            if(context['passed_list'][0]['id'] == None): context['passed_list'] = []
         return context
 
 class PassedExaminationDelete(LoginRequiredMixin, DeleteView):

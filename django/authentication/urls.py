@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import CustomLoginView, RegisterView
+from .views import CustomLoginView, RegisterView, MyPasswordResetView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 
@@ -10,7 +10,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
 
     path('reset_password/', 
-        auth_views.PasswordResetView.as_view(template_name="authentication/password_reset.html"), 
+        MyPasswordResetView.as_view(template_name="authentication/password_reset.html"), 
         name='password_reset'), # submit email form
 
     path('reset_password_sent/', 

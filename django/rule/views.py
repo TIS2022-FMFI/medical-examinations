@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.db import connection
 
-from .models import City, Department, PositionRule, ShiftRule
+from .models import City, Department, PositionRule, ShiftRule, Rule
 from .forms import PositionRuleEditForm, ShiftRuleEditForm
 from rulesExamination.models import RulesExamination
 from examinationType.models import ExaminationType
@@ -32,10 +32,26 @@ class ShiftRuleDetail(LoginRequiredMixin, DetailView):
     model = ShiftRule
 
 
-class ShiftRuleCreate(LoginRequiredMixin, CreateView):
-    model = ShiftRule
-    fields = ("name",)
-    success_url = reverse_lazy('shifts')
+class ShiftRuleCreate(LoginRequiredMixin, FormView):
+    template_name = "rule/shiftrule_form.html"
+    form_class = ShiftRuleEditForm     
+
+    def get_success_url(self):
+        return reverse_lazy('shifts')
+
+    def form_valid(self, form):
+        examinationsSetInForm = set(form.cleaned_data['examinatoins'])
+
+        with transaction.atomic(): # start transaction
+            rule = Rule.objects.create()
+            shiftRule = ShiftRule.objects.create(
+                name = form.cleaned_data['name'],
+                ruleId = rule
+            )
+            for examination in ExaminationType.objects.filter(id__in = examinationsSetInForm):
+                RulesExamination.objects.create(ruleId=shiftRule.ruleId, examinationTypeId = examination)
+    
+        return super().form_valid(form)
 
 
 class ShiftRuleUpdate(LoginRequiredMixin, FormView):
@@ -81,6 +97,16 @@ class ShiftRuleDelete(LoginRequiredMixin, DeleteView):
     model = ShiftRule
     success_url = reverse_lazy('shifts')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM employee_employee e
+                        WHERE e.shiftRuleId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
+
     
 
 
@@ -123,6 +149,16 @@ class DepartmentDelete(LoginRequiredMixin, DeleteView):
     model = Department
     success_url = reverse_lazy('departments')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM rule_positionrule p
+                        WHERE p.departmentId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
+
 
 # ############################          City            ###########################
 class CityList(LoginRequiredMixin, ListView):
@@ -149,6 +185,16 @@ class CityDelete(LoginRequiredMixin, DeleteView):
     model = City
     success_url = reverse_lazy('cities')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM rule_department d
+                        WHERE d.cityId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context
+
 
 # ############################      PositionRule        ###########################
 class PositionRuleList(LoginRequiredMixin, ListView):
@@ -170,10 +216,29 @@ class PositionRuleDetail(LoginRequiredMixin, DetailView):
     model = PositionRule
 
 
-class PositionRuleCreate(LoginRequiredMixin, CreateView):
-    model = PositionRule
-    fields = ("name","departmentId")
-    success_url = reverse_lazy('rules')
+class PositionRuleCreate(LoginRequiredMixin, FormView):
+    template_name = "rule/positionrule_form.html"
+    form_class = PositionRuleEditForm     
+
+    def get_success_url(self):
+        return reverse_lazy('positionRules')
+
+    def form_valid(self, form):
+
+        examinationsSetInForm = set(form.cleaned_data['examinatoins'])
+
+        with transaction.atomic(): # start transaction
+            rule = Rule.objects.create()
+            positionRule = PositionRule.objects.create(
+                name = form.cleaned_data['name'],
+                departmentId = get_object_or_404(Department, id = form.cleaned_data['department']),
+                ruleId = rule
+            )
+            # to set
+            for examination in ExaminationType.objects.filter(id__in = examinationsSetInForm):
+                RulesExamination.objects.create(ruleId=positionRule.ruleId, examinationTypeId = examination)
+                
+        return super().form_valid(form)
 
 
 class PositionRuleUpdate(LoginRequiredMixin, FormView):
@@ -197,7 +262,6 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
         departmentIdSetInForm = form.cleaned_data['department']
         examinationsSetInForm = set(form.cleaned_data['examinatoins'])
 
-        
         with transaction.atomic(): # start transaction
             examinationsSetInDB = set(str(i.examinationTypeId.id) for i in RulesExamination.objects.filter(ruleId = positionRule.ruleId))
             departmentSetInForm = get_object_or_404(Department, id = departmentIdSetInForm)
@@ -222,3 +286,13 @@ class PositionRuleUpdate(LoginRequiredMixin, FormView):
 class PositionRuleDelete(LoginRequiredMixin, DeleteView):
     model = PositionRule
     success_url = reverse_lazy('rules')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute('''
+                        SELECT *
+                        FROM employee_employee e
+                        WHERE e.positionRuleId_id=%s''', {self.kwargs['pk']})
+            context['zavislosti'] = dictfetchall(cursor)
+        return context

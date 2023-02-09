@@ -41,9 +41,9 @@ class ExcelParserEmployee:
     def start(self):
         PassedExaminations.objects.all().delete()
         Employee.objects.all().delete()
-        ExaminationType.objects.all().delete()
+        # ExaminationType.objects.all().delete()
 
-        self.insert_examination_types_to_db()
+        self.insert_examination_types_to_db()     # VNUTRI VYPNUTE TAKZE TERAZ SA TYPY PREHLIADOK NEZAPISUJU DO DB
         self.insert_employees_to_db()
 
     def _get_or_create_position_rule(self, position_name, department_name, city_name):
@@ -95,9 +95,6 @@ class ExcelParserEmployee:
 
     def insert_employees_to_db(self):
 
-
-
-
         # skip first line in sheet (header)
         itersheet = iter(self.sheet)
         next(itersheet)
@@ -136,13 +133,21 @@ class ExcelParserEmployee:
     def insert_examination_types_to_db(self):
         periodicities = self._get_periodicities_of_examination_types()
         for cell in self.header_row_cells[self.column_of_first_exam_type-1:]:
-            et = ExaminationType()
-            name = cell.value
-            et.name = name
-            et.periodicity = periodicities[name]
-            et.save()
 
-            self.examination_type_objects_by_column_number[cell.column] = et
+            # VYPNUTE TAKZE TERAZ SA TYPY PREHLIADOK NEZAPISUJU DO DB
+            # et = ExaminationType()
+            # name = cell.value
+            # et.name = name
+            # et.periodicity = periodicities[name]
+            # et.save()
+
+            # self.examination_type_objects_by_column_number[cell.column] = et
+            self.examination_type_objects_by_column_number[cell.column] = self._get_examination_type(cell.value)
+
+
+    def _get_examination_type(self, examination_type_name):
+        return ExaminationType.objects.get(name=examination_type_name)
+
 
     def _get_periodicities_of_examination_types(self):
         periodicities = dict()
