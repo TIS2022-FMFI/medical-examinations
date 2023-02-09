@@ -50,10 +50,10 @@
     <tr>
         <td><a href="{% url 'employeeUpdate' employee.id %}" class="hover">{{ employee.name }} {{ employee.surname }}</a></td>
         <td>{{ employee.employeeId }}</td>
-        <td>{{ employee.positionName }}</td>
-        <td>{{ employee.departmentName }}</td>
-        <td>{{ employee.cityName }}</td>
-        <td>{{ employee.shiftName }}</td>
+        <td><a href="{% url 'positionRuleUpdate' employee.positionId %}" class="hover">{{ employee.positionName }}</a></td>
+        <td><a href="{% url 'departmentUpdate' employee.departmentId %}" class="hover">{{ employee.departmentName }}</a></td>
+        <td><a href="{% url 'cityUpdate' employee.cityId %}" class="hover">{{ employee.cityName }}</a></td>
+        <td><a href="{% url 'shiftUpdate' employee.shiftId %}" class="hover">{{ employee.shiftName }}</a></td>
         <td>{% if employee.exception_days_to_expiration == None %}
                 {% if employee.days_to_expiration == -999999 %}
                     NEMÁ

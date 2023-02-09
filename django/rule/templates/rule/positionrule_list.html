@@ -12,6 +12,7 @@
     <tr>
         <th>Názov</th>
         <th>Oddelenie</th>
+        <th>Mesto</th>
         <th></th>
     </tr>
     </thead>
@@ -19,7 +20,9 @@
     <tr>
         <td><a href="{% url 'positionRuleUpdate' positionRule.position_id %}" class="hover">{{positionRule.position_name}}</a></td>
         <td><a href="{% url 'departmentUpdate' positionRule.department_id %}" class="hover">{{positionRule.department_name}}</a></td>
+        <td><a href="{% url 'cityUpdate' positionRule.city_id %}" class="hover">{{positionRule.city_name}}</a></td>
         <td><a href="{% url 'positionRuleDelete' positionRule.position_id %}" class="hover">Zmazať</a></td>
+
     </tr>
     {% empty %}
         <h3>Žiadne pozície</h3>

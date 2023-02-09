@@ -45,10 +45,10 @@ class EmployeeList(LoginRequiredMixin, ListView):
         with connection.cursor() as cursor:
             cursor.execute("""
                 SELECT employee.id, employee.name, employee.surname, employee.employeeId,
-                    position.name as positionName,
-                    department.name as departmentName,
-                    city.name as cityName,
-                    shift.name as shiftName,
+                    position.id as positionId, position.name as positionName,
+                    department.id as departmentId, department.name as departmentName,
+                    city.id as cityId, city.name as cityName,
+                    shift.id as shiftId, shift.name as shiftName,
                     DATEDIFF(employee.exceptionExpirationDate, now()) exception_days_to_expiration,
                     MIN(IFNULL(CAST(examinationType.periodicity AS SIGNED)*365 - DATEDIFF(now(),passedExamination.date), -999999)) days_to_expiration
                 FROM employee_employee employee

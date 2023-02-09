@@ -2,12 +2,19 @@
 
 {% block content %}
 <div class="form-regular-div">
-<h1>Login</h1>
+<h1>Prihlásenie</h1>
 
 <form method="POST">
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Login" class="form-regular-submit">
+    <p>
+        <label for="{{form.username.auto_id}}">Uživateľ:</label>
+        {{form.username}}
+    </p>
+    <p>
+        <label for="{{form.password.auto_id}}">Heslo:</label>
+        {{form.password}}
+    </p>
+    <input type="submit" value="Prihlásiť" class="form-regular-submit">
 </form>
 <script>
     complikovane_url = "{% url 'password_reset' %}"

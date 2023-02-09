@@ -18,6 +18,7 @@ def dictfetchall(cursor):
 class ExaminationTypeList(LoginRequiredMixin, ListView):
     model = ExaminationType
     context_object_name = 'examinatonTypes'
+    ordering = ['name']
 
 
 class ExaminationTypeDetail(LoginRequiredMixin, DetailView):
