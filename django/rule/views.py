@@ -26,6 +26,7 @@ def dictfetchall(cursor):
 # ############################          ShiftRule      ###########################
 class ShiftRuleList(LoginRequiredMixin, ListView):
     model = ShiftRule
+    ordering = ['name']
 
 
 class ShiftRuleDetail(LoginRequiredMixin, DetailView):
@@ -124,6 +125,7 @@ class DepartmentList(LoginRequiredMixin, ListView):
                     city.id cityId, city.name cityName
                 FROM rule_department department
                 LEFT JOIN rule_city city ON department.cityId_id = city.id
+                ORDER BY department.name, city.name
             """)
             return dictfetchall(cursor)
         return []
@@ -163,6 +165,7 @@ class DepartmentDelete(LoginRequiredMixin, DeleteView):
 # ############################          City            ###########################
 class CityList(LoginRequiredMixin, ListView):
     model = City
+    ordering = ['name']
 
 
 class CityDetail(LoginRequiredMixin, DetailView):
@@ -205,9 +208,13 @@ class PositionRuleList(LoginRequiredMixin, ListView):
         with connection.cursor() as cursor:
             cursor.execute('''
                 SELECT 	p.id position_id, p.name position_name,
-		                d.id department_id, d.name department_name
+		                d.id department_id, d.name department_name,
+                        c.id city_id, c.name city_name
                 FROM rule_positionrule p
-                LEFT JOIN rule_department d ON p.departmentId_id = d.id  ''')
+                LEFT JOIN rule_department d ON p.departmentId_id = d.id  
+                LEFT JOIN rule_city c ON d.cityId_id = c.id
+                ORDER BY p.name, d.name, c.name
+                ''')
             return dictfetchall(cursor)
 
 

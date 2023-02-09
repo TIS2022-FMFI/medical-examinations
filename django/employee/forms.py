@@ -26,9 +26,9 @@ class EditForm(forms.Form):
     surname = forms.CharField(label="Priezvisko", max_length=30)
     employeeId = forms.CharField(label="Identifikačné číslo zamestnanca", max_length=15)
     personalNumber = forms.CharField(label="Osobné číslo", max_length=15)
-    userComment = forms.CharField(label="Poznámka uživatela", widget=forms.Textarea, required=False)
+    userComment = forms.CharField(label="Poznámka uživateľa", widget=forms.Textarea, required=False)
     exceptionExpirationDate = forms.DateField(label = "Dátum vypršania obmedzenia", widget=DateInput, required=False)
-    positionRuleId = forms.ChoiceField(label = "Pozíca/Oddelenie/Mesto", widget=forms.Select())
+    positionRuleId = forms.ChoiceField(label = "Pozícia/Oddelenie/Mesto", widget=forms.Select())
     shiftRuleId = forms.ChoiceField(label = "Zmennosť", widget=forms.Select())
 
     def __init__(self, employeeId = None, *args, **kwargs):

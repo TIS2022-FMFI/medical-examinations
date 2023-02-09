@@ -17,7 +17,7 @@ def dictfetchall(cursor):
 
 
 class PositionRuleEditForm(forms.Form):
-    name = forms.CharField(label="Nazov")
+    name = forms.CharField(label="Názov")
     department = forms.ChoiceField(label = "Oddelenie", widget=forms.Select())
     examinatoins = forms.MultipleChoiceField(label="Prehliadky", widget = forms.CheckboxSelectMultiple())
 
@@ -50,7 +50,7 @@ class PositionRuleEditForm(forms.Form):
 
 
 class ShiftRuleEditForm(forms.Form):
-    name = forms.CharField(label="Nazov")
+    name = forms.CharField(label="Názov")
     examinatoins = forms.MultipleChoiceField(label="Prehliadky", widget = forms.CheckboxSelectMultiple())
 
     def __init__(self, shiftRuleId=None, *args, **kwargs):
