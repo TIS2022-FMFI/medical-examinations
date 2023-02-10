@@ -3,14 +3,21 @@
 
 <h1>Vymazať</h1>
 
-<p><a href="{% url 'employeesPassedExaminations' employee.id %}">naspäť</a></p>
-
+<br>
+<p>
+<script>
+    url_complicated1="{% url 'employeesPassedExaminations' employee.id %}"
+</script>
+<button class="button-regular" role="button" onclick="location.href=url_complicated1">Späť</button>
+</p>
+<br>
 <div>
     <form method="POST">
         {% csrf_token %}
         <p>Ste si istý, že chcete vymazať zamestnancovi "{{employee.name}} {{employee.surname}}"" 
             záznam o absolvovaní prehliadky: "{{passedExamination.examinationTypeId}} dňa {{passedExamination.date}}"?</p>
-        <input type = "submit" value="Delete"/>
+        <br>
+        <input type = "submit" value="Zmazať" class="form-regular-submit"/>
     </form>
 </div>
 

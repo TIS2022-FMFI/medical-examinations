@@ -18,14 +18,14 @@
 
 
   <p>
-    <h2>Individuálne priradené prehiladky zamestnanca {{ employee }}: </h2>
+    <h2>Prehiladky zamestnanca {{ employee }}: </h2>
   </p>
   <br>  
     <div class="input-group date" id="datetimepicker1" data-target-input="nearest"></div>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Submit">
+            <input type="submit" value="Uložiť" class="form-regular-submit">
         </form>
         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>

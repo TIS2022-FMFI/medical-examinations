@@ -15,10 +15,9 @@ def dictfetchall(cursor):
         for row in cursor.fetchall() 
     ]
 
-
 class PositionRuleEditForm(forms.Form):
     name = forms.CharField(label="Názov")
-    department = forms.ChoiceField(label = "Oddelenie", widget=forms.Select())
+    department = forms.ChoiceField(label = "Oddelenie/Mesto", widget=forms.Select())
     examinatoins = forms.MultipleChoiceField(label="Prehliadky", widget = forms.CheckboxSelectMultiple())
 
     def __init__(self, positionRuleId=None, *args, **kwargs):
@@ -30,14 +29,14 @@ class PositionRuleEditForm(forms.Form):
                     city.name AS cityName
                 FROM rule_department AS department
                 LEFT JOIN rule_city AS city ON department.cityId_id = city.id
-                ORDER BY department.name
+                ORDER BY department.name, city.name
             """)
             departments = dictfetchall(cursor)    
 
-        self.fields['department'].choices = [(i['id'], f"{i['name']} {i['cityName']}") for i in departments]
+        self.fields['department'].choices = [(i['id'], f"{i['name']}/{i['cityName']}") for i in departments]
         
         self.fields['examinatoins'].required = False
-        self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
+        self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all().order_by('name')]
 
         if(positionRuleId != None):
             positionRule = get_object_or_404(PositionRule, id=positionRuleId)
@@ -57,7 +56,7 @@ class ShiftRuleEditForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         self.fields['examinatoins'].required = False
-        self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all()]
+        self.fields['examinatoins'].choices = [(i.id, f"{i.name}") for i in ExaminationType.objects.all().order_by('name')]
 
         if(shiftRuleId != None):
             shiftnRule = get_object_or_404(ShiftRule, id=shiftRuleId)

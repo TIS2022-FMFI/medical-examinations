@@ -25,13 +25,16 @@
         <tr>
             <th>Dátum absolvovanie</th>
             <th>Názov prehliadky</th>
+            <th>Periodicita</th>
             <th></th>
         </tr>
         {% for passed in context.passed_list %}
+        
         <tr>
             <td>{{ passed.date }}</td>
             <td>{{ passed.examinationName }}</td>
-            <td><a href="{% url 'passedExaminationDelete' passed.id context.employee.id %}"></a>delete</a></td>
+            <td>{{ passed.examinPeriod }}</td>
+            <td><a href="{% url 'passedExaminationDelete' passed.id context.employee.id %}" class="hover">Zmazať</a></td>
         </tr>
         {% empty %}
             <h3>Žiadne absolvavane prehliadky</h3>

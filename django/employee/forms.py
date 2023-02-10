@@ -26,10 +26,10 @@ class EditForm(forms.Form):
     surname = forms.CharField(label="Priezvisko", max_length=30)
     employeeId = forms.CharField(label="Identifikačné číslo zamestnanca", max_length=15)
     personalNumber = forms.CharField(label="Osobné číslo", max_length=15)
-    userComment = forms.CharField(label="Poznámka uživateľa", widget=forms.Textarea, required=False)
-    exceptionExpirationDate = forms.DateField(label = "Dátum vypršania obmedzenia", widget=DateInput, required=False)
     positionRuleId = forms.ChoiceField(label = "Pozícia/Oddelenie/Mesto", widget=forms.Select())
     shiftRuleId = forms.ChoiceField(label = "Zmennosť", widget=forms.Select())
+    userComment = forms.CharField(label="Poznámka uživateľa", widget=forms.Textarea, required=False)
+    exceptionExpirationDate = forms.DateField(label = "Dátum vypršania obmedzenia", widget=DateInput, required=False)
 
     def __init__(self, employeeId = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -43,14 +43,14 @@ class EditForm(forms.Form):
                 FROM rule_positionrule AS position
                 LEFT JOIN rule_department AS department ON position.departmentId_id = department.id
                 LEFT JOIN rule_city AS city ON department.cityId_id = city.id
-                ORDER BY department.name
+                ORDER BY position.name, department.name, city.name
             """)
             positions = dictfetchall(cursor)   
 
         self.fields['positionRuleId'].choices = [(i['id'], f"{i['name']}/{i['departmentName']}/{i['cityName']}") for i in positions]
         self.fields['positionRuleId'].choices.append((None, "---"))
         self.fields['positionRuleId'].inital = None
-        self.fields['shiftRuleId'].choices = [(i.id, f"{i.name}") for i in ShiftRule.objects.all()]
+        self.fields['shiftRuleId'].choices = [(i.id, f"{i.name}") for i in ShiftRule.objects.all().order_by('name')]
         self.fields['shiftRuleId'].choices.append((None, "---"))
         self.fields['shiftRuleId'].inital = None
         
