@@ -31,12 +31,12 @@ class PassedExaminationsList(LoginRequiredMixin, ListView):
             cursor.execute("""
                 SELECT 
                     passed.id, passed.date,
-                    examination.name as examinationName
+                    examination.name as examinationName, examination.periodicity as examinPeriod
                 FROM employee_employee AS employee
                 LEFT JOIN passedExamination_passedexaminations AS passed ON employee.id = passed.employeeId_id
                 LEFT JOIN examinationType_examinationtype AS examination ON passed.examinationTypeId_id = examination.id
                 WHERE employee.id = %s
-                ORDER BY passed.date DESC
+                ORDER BY passed.date DESC, examination.name
             """, [self.kwargs['pk']])
             context['passed_list'] = dictfetchall(cursor)
             if(context['passed_list'][0]['id'] == None): context['passed_list'] = []
