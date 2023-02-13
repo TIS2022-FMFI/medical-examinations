@@ -98,18 +98,42 @@ class AbsolvedExaminationsChoiceForm(forms.Form):
 
         employee = get_object_or_404(Employee, id=employeeId)
 
-        if(employee.hiddenRuleId != None):
-            choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
-                            for i in RulesExamination.objects.filter(
-                                Q(ruleId = employee.positionRuleId.ruleId) |
-                                Q(ruleId = employee.shiftRuleId.ruleId) |
-                                Q(ruleId = employee.hiddenRuleId.ruleId)
-                                ))
-        else:
-           choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
-                            for i in RulesExamination.objects.filter(
-                                Q(ruleId = employee.positionRuleId.ruleId) |
-                                Q(ruleId = employee.shiftRuleId.ruleId)
-                                ))
+        # if(employee.hiddenRuleId != None):
+        #     choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
+        #                     for i in RulesExamination.objects.filter(
+        #                         Q(ruleId = employee.positionRuleId.ruleId) |
+        #                         Q(ruleId = employee.shiftRuleId.ruleId) |
+        #                         Q(ruleId = employee.hiddenRuleId.ruleId)
+        #                         ))
+        # else:
+        #    choices = set((i.examinationTypeId.id, f"{i.examinationTypeId.name}") 
+        #                     for i in RulesExamination.objects.filter(
+        #                         Q(ruleId = employee.positionRuleId.ruleId) |
+        #                         Q(ruleId = employee.shiftRuleId.ruleId)
+        #                         ))
 
-        self.fields['choicesField'].choices = choices
+        # self.fields['choicesField'].choices = choices
+
+        with connection.cursor() as cursor:
+            if(employee.hiddenRuleId != None):
+                cursor.execute("""
+                    SELECT DISTINCT
+                        examinationt.id, examinationt.name
+                    FROM rulesExamination_rulesexamination AS rulesExamination
+                    LEFT JOIN examinationType_examinationtype AS examinationt ON rulesExamination.examinationTypeId_id = examinationt.id
+                    WHERE rulesExamination.ruleId_id = %s OR rulesExamination.ruleId_id = %s OR rulesExamination.ruleId_id = %s
+                    ORDER BY examinationt.name
+                """, [employee.positionRuleId.ruleId.id, employee.shiftRuleId.ruleId.id, employee.hiddenRuleId.ruleId.id])
+            else:
+                cursor.execute("""
+                    SELECT DISTINCT
+                        examinationt.id, examinationt.name
+                    FROM rulesExamination_rulesexamination AS rulesExamination
+                    LEFT JOIN examinationType_examinationtype AS examinationt ON rulesExamination.examinationTypeId_id = examinationt.id
+                    WHERE rulesExamination.ruleId_id = %s OR rulesExamination.ruleId_id = %s
+                    ORDER BY examinationt.name
+                """, [employee.positionRuleId.ruleId.id, employee.shiftRuleId.ruleId.id])
+            self.fields['choicesField'].choices = [(i['id'], i['name']) for i in dictfetchall(cursor)]
+
+
+             

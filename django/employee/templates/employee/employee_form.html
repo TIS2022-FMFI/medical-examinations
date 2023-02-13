@@ -5,7 +5,10 @@
 <button class="button-regular" role="button" onclick="window.location.href='/employee/';">Späť</button>
 <form method="POST" action="">
     {% csrf_token %}
-    {{form.as_p}}
+    <table>
+        {{form.as_p}}
+    </table>
+    <br>
     <input type="submit" value="Uložiť" class="form-regular-submit">
 </form>
 </div>
